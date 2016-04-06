@@ -1,0 +1,41 @@
+{
+  "name": "TicTacToe",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/yoav-zibin/TicTacToe.git"
+  },
+  "version": "1.0.0",
+  "devDependencies": {
+    "autoprefixer": "*",
+    "cssnano": "*",
+    "grunt": "*",
+    "grunt-cli": "*",
+    "grunt-contrib-concat": "*",
+    "grunt-contrib-copy": "*",
+    "grunt-contrib-uglify": "*",
+    "grunt-http-server": "*",
+    "grunt-karma": "*",
+    "grunt-manifest": "*",
+    "grunt-postcss": "*",
+    "grunt-processhtml": "*",
+    "grunt-protractor-runner": "*",
+    "grunt-shell": "*",
+    "grunt-ts": "*",
+    "http-server": "*",
+    "jasmine-core": "*",
+    "karma": "*",
+    "karma-chrome-launcher": "*",
+    "karma-coverage": "*",
+    "karma-jasmine": "*",
+    "load-grunt-tasks": "*",
+    "typescript": "*",
+    "protractor": "*"
+  },
+  "scripts": {
+    "postinstall": "webdriver-manager update",
+    "prestart": "npm install",
+    "start": "http-server -a localhost -p 9000 -c-1",
+    "test": "grunt"
+  },
+  "author": "Yoav Zibin"
+}

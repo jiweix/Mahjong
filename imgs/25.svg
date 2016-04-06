@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="64" height="88">
+<defs><linearGradient id="q" x1="4" y1="82.3" x2="6" y2="84.3" gradientUnits="userSpaceOnUse">
+<stop offset="0" stop-color="#ddd"/>
+<stop offset="1" stop-color="#999"/></linearGradient></defs>
+<path fill="#999" d="m2,87.7h53.2l8-8v-2H12"/>
+<path fill="url(#q)" d="m.3,86 2,1.6 7.5-7.5 -2-1.6"/>
+<path fill="#ddd" d="m.5,8v78l8.9-8.9V.4H8"/>
+<rect fill="#F6F6F6" x="7.75" y=".75" width="55" height="79.5" rx="2"/>
+<rect fill="#FFF" x="8.75" y=".75" width="54.5" height="79.5" rx="2"/>
+<g stroke-width=".74" fill="none">
+<path stroke="#000" d="m1,7.7q-.6,.4-.5,1.3v76.6q.3,1.7 2,2h52.3q1,0 1.4-.6l6.7-6.7q.6-.6 .7-1.4V2.4q-.3-1.7-2-2H9q-1,0-1.4,.6z"/>
+<g id="e"><g id="d">
+<path id="c" stroke="#10106C" d="m27.3,10.3a6.2,6.2 0 1,0 .1,0zm0,1a5.2,5.2 0 1,0 .1,0zm0,2.2a3,3 0 1,0 .1,0zm0,3a2.4,2.4 0 1,0 .1,0za2.4,2.4 0 1,1 .1,0za2.4,2.4 0 1,0 0,.1za2.4,2.4 0 1,1 0,.1z"/>
+<use xlink:href="#c" x="16"/></g>
+<use xlink:href="#d" y="16"/></g>
+<use xlink:href="#e" y="32"/></g>
+</svg>

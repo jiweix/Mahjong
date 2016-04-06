@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<!-- build:[manifest] index.min.appcache -->
+<html lang="en" ng-app="myApp" ng-strict-di>
+<!-- /build -->
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+  <title>MAHJONG</title>
+  <meta name="description" content="Mahjonge game">
+  <link rel="shortcut icon"type="image/x-icon" href="data:image/x-icon;,"><!-- Suppress browser request for favicon.ico -->
+
+  <!-- To ensure CSS files are downloaded in parallel, always include external CSS before external JavaScript. -->
+  <!-- build:[href] css/everything.min.css -->
+  <link rel="stylesheet" type="text/css" href="css/game.css">
+  <!-- /build -->
+  <link crossorigin="anonymous" rel="stylesheet" type="text/css" href="http://yoav-zibin.github.io/emulator/main.css">
+
+  <!-- build:[href] http://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css -->
+  <link crossorigin="anonymous" rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.css">
+  <!-- /build -->
+
+  <!-- The crossorigin attribute controls, for scripts that are obtained from other origins, whether error information will be exposed. -->
+  <!-- build:[src] http://ajax.googleapis.com/ajax/libs/angularjs/1.4.9/angular.min.js -->
+  <script crossorigin="anonymous" src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.9/angular.js"></script>
+  <!-- /build -->
+
+  <!-- For the game rules/instructions, I use carousel from Angular UI + Bootstrap -->
+  <!-- build:[src] http://ajax.googleapis.com/ajax/libs/angularjs/1.4.9/angular-touch.min.js -->
+  <script crossorigin="anonymous" src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.9/angular-touch.js"></script>
+  <!-- /build -->
+  <!-- build:[src] http://cdnjs.cloudflare.com/ajax/libs/angular-ui-bootstrap/0.12.1/ui-bootstrap-tpls.min.js -->
+  <script crossorigin="anonymous" src="http://cdnjs.cloudflare.com/ajax/libs/angular-ui-bootstrap/0.12.1/ui-bootstrap-tpls.js"></script>
+  <!-- /build -->
+
+  <!-- build:[src] http://yoav-zibin.github.io/emulator/dist/turnBasedServices.3.min.js -->
+  <script crossorigin="anonymous" src="http://yoav-zibin.github.io/emulator/dist/turnBasedServices.3.js"></script>
+  <!-- /build -->
+
+  <!-- build:js js/everything.min.js -->
+  <script src="ts_output_readonly_do_NOT_change_manually/src/gameLogic.js"></script>
+  <script src="ts_output_readonly_do_NOT_change_manually/src/game.js"></script>
+  <script src="ts_output_readonly_do_NOT_change_manually/src/aiService.js"></script>
+  <!-- /build -->
+
+  <!-- build:remove -->
+  <!-- https://github.com/philipwalton/html-inspector#getting-started -->
+  <script src="http://cdnjs.cloudflare.com/ajax/libs/html-inspector/0.8.2/html-inspector.js"></script>
+  <!-- /build -->
+
+</head>
+<body class="ng-cloak">
+  <div id="e2e_test_open_rules_modal" class="help-tip" ng-click="game.isHelpModalShown = true" aria-hidden="true"></div>
+
+  <div class="overlayModal" ng-click="game.clickedOnModal($event)"
+      ng-class="{zeroOpacity: !game.isHelpModalShown, oneOpacity: game.isHelpModalShown}" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" ng-click="game.isHelpModalShown = false" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+          <h4 id="e2e_test_rules_title" class="modal-title">
+            {{ 'RULES_OF_MAHJONG' | translate }}
+          </h4>
+        </div>
+        <div class="modal-body">
+          <carousel style="height: 150px">
+            <slide>
+              <table>
+                <tr>
+                  <td id="e2e_test_rules_slide1_text">
+                    {{ 'RULES_SLIDE1' | translate }}
+                  </td>
+                  <td>
+                    <img src="imgs/HelpSlide1.png" alt="Help slide 1" style="height:100px;">
+                  </td>
+                </tr>
+              </table>
+            </slide>
+            <slide>
+              <table>
+                <tr>
+                  <td id="e2e_test_rules_slide2_text">
+                  {{ 'RULES_SLIDE2' | translate }}
+                  </td>
+                  <td>
+                    <img src="imgs/HelpSlide2.png" alt="Help slide 2" style="height:100px;">
+                  </td>
+                </tr>
+              </table>
+            </slide>
+          </carousel>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-primary" ng-click="game.isHelpModalShown = false">
+            {{ 'CLOSE' | translate }}
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+<div id="gameArea" ng-cloak>
+  
+  <div id="paiStack1" 
+    style="position:absolute; top:0; left:0%; width:10%; height:100%;">
+  </div>
+  <div id="MainArea" 
+    style="position:absolute; top:0; left:10%; width:80%; height:100%;">
+    
+    <div id="oppPai"
+      style="position:absolute; top:0%; left:0; width:100%; height:15%;">
+      <div id="oppOpen"
+        style="position:absolute; top:0%; left:0%; width:{{game.opponentOpenLength*7}}%; height:100%;">
+        <img ng-cloak ng-repeat="index in game.oppopenindex" id="oppopen{{index}}" 
+          height="50%" src="./imgs/{{game.opp.open[index]}}.svg" alt="Smiley face"
+          >
+      </div>
+      <!-- Opponent hand-->
+      <div id="oppHand"
+        style="position:absolute; top:0%; right:0; width:{{game.opponentHandLength*7}}%; height:100%;">
+        <img ng-cloak ng-repeat="index in game.opphandindex" 
+          height="45%" src="./imgs/b.svg" alt="Smiley face">
+         
+      </div>
+    </div>
+    
+    <div id="outPai"
+      style="position:absolute; top:15%; left:0; width:100%; height:55%;">
+      <img ng-cloak ng-repeat="index in game.outindex" id="out{{index}}" 
+          height="10%" src="./imgs/{{game.state.board.out[index]}}.svg" alt="Smiley face">
+    </div>
+    
+    <div id="Option"
+      style="position:absolute; top:70%; left:0; width:100%; height:15%;">
+      
+      <img ng-repeat="index in [0, 1, 2, 3, 4, 5, 6]" ng-if="game.ifLegalMove(index)" 
+        src="./imgs/00{{index+1}}.svg" 
+        alt="Smiley face" height="45%"
+        ng-click="game.optionClicked(index)"
+        style="position:absolute; top:0%; right:{{(6-index)*15}}%; height:60%;">
+      
+    </div>
+    
+    
+    <div id="playerPai"
+      style="position:absolute; top:85%; left:0; width:100%; height:15%;">
+      <div id="palyerOpen"
+        style="position:absolute; top:0%; left:0%; width:{{game.playerOpenLength*7}}%; height:100%;">
+        <img ng-cloak ng-repeat="index in game.openindex" id="playeropen{{index}}" 
+          height="50%" src="./imgs/{{game.player.open[index]}}.svg" alt="Smiley face"
+          >
+      </div>
+      <div id="palyerHand"
+        style="position:absolute; top:0%; right:0; width:{{game.playerHandLength*7}}%; height:100%;">
+        <img ng-cloak ng-repeat="index in game.handindex" id="playerhand{{index}}" 
+          height="50%" src="./imgs/{{game.chand[index]}}.svg" alt="Smiley face"
+          ng-click="game.paiClicked(index)">
+         
+      </div>
+    </div>
+    
+  </div>
+  
+  <div id="paiStack2" 
+    style="position:absolute; top:0; left:90%; width:10%; height:100%;">
+  </div>
+  <!--
+  <div ng-repeat="row in [0, 1, 2]"
+      style="position:absolute; top:{{row * 33}}%; left:0; width:100%; height:33%;">
+    <div ng-repeat="col in [0, 1, 2]"
+        style="position:absolute; top:0; left:{{col * 33}}%; width:33%; height:100%;"
+        ng-class="{r: col < 2, b: row < 2}"
+        ng-click="game.cellClicked(row, col)"
+        id="{{'e2e_test_div_' + row + 'x' + col}}">
+      <div style="width:100%; height: 100%"
+          ng-class="{slowlyAppear: game.shouldSlowlyAppear(row, col)}"
+          ng-if="game.shouldShowImage(row, col)">
+        <svg ng-if="game.isPieceO(row, col)"
+            id="{{'e2e_test_pieceO_' + row + 'x' + col}}"
+            width="100%" height="100%">
+          <circle cx="50%" cy="50%" r="27%"
+            stroke="blue" stroke-width="5%" fill="white" />
+        </svg>
+        <svg ng-if="game.isPieceX(row, col)"
+            id="{{'e2e_test_pieceX_' + row + 'x' + col}}"
+            width="100%" height="100%">
+          <line x1="25%" y1="25%"
+                x2="75%" y2="75%"
+                stroke="red"
+                stroke-width="5%"/>
+          <line x1="25%" y1="75%"
+                x2="75%" y2="25%"
+                stroke="red"
+                stroke-width="5%"/>
+        </svg>
+      </div>
+    </div>
+  </div>
+  
+  -->
+</div>
+
+</body>
+</html>
