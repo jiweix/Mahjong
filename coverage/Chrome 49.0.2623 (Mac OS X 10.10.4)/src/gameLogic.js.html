@@ -20,9 +20,9 @@
     </h1>
     <div class='clearfix'>
       <div class='fl pad1y space-right2'>
-        <span class="strong">68.89% </span>
+        <span class="strong">69.14% </span>
         <span class="quiet">Statements</span>
-        <span class='fraction'>186/270</span>
+        <span class='fraction'>186/269</span>
       </div>
       <div class='fl pad1y space-right2'>
         <span class="strong">68.99% </span>
@@ -35,9 +35,9 @@
         <span class='fraction'>22/26</span>
       </div>
       <div class='fl pad1y space-right2'>
-        <span class="strong">68.42% </span>
+        <span class="strong">68.68% </span>
         <span class="quiet">Lines</span>
-        <span class='fraction'>182/266</span>
+        <span class='fraction'>182/265</span>
       </div>
     </div>
   </div>
@@ -449,7 +449,13 @@
 404
 405
 406
-407</td><td class="line-coverage quiet"><span class="cline-any cline-yes">1×</span>
+407
+408
+409
+410
+411
+412
+413</td><td class="line-coverage quiet"><span class="cline-any cline-yes">1×</span>
 <span class="cline-any cline-yes">1×</span>
 <span class="cline-any cline-yes">1×</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -826,12 +832,18 @@
 <span class="cline-any cline-yes">1×</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">5×</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">5×</span>
 <span class="cline-any cline-yes">5×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">5×</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">5×</span>
 <span class="cline-any cline-yes">5×</span>
 <span class="cline-any cline-yes">5×</span>
@@ -996,7 +1008,7 @@
         var newcards = angular.copy(cards);
         newcards.push(pai);
         <span class="missing-if-branch" title="if path not taken" >I</span>if ([5, 8, 11, 14].indexOf(newcards.length) == -1) {
-<span class="cstat-no" title="statement not covered" >            console.log("length of arr is illegal.");</span>
+<span class="cstat-no" title="statement not covered" >            console.log("Hu length of arr is illegal.");</span>
 <span class="cstat-no" title="statement not covered" >            throw "Hu number of cards is illegal";</span>
         }
         var cardsNewFormat = formatConvert(newcards);
@@ -1045,8 +1057,8 @@
 <span class="cstat-no" title="statement not covered" >        return false;</span>
     }
     function ifChi(hand, target) {
-        <span class="missing-if-branch" title="if path not taken" >I</span>if ([7, 10, 13].indexOf(hand.length) == -1) {
-<span class="cstat-no" title="statement not covered" >            console.log("length of arr is illegal.");</span>
+        <span class="missing-if-branch" title="if path not taken" >I</span>if ([4, 7, 10, 13].indexOf(hand.length) == -1) {
+<span class="cstat-no" title="statement not covered" >            console.log("Chi length of arr is illegal.");</span>
 <span class="cstat-no" title="statement not covered" >            throw "Chi number of cards is illegal";</span>
         }
         // convert to [[14, 3, 1, 1, 1, 1, 1, 1, 1, 4], [0, 0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0, 0, 0]]
@@ -1081,8 +1093,8 @@
     function ifPeng(hand, target) {
         // input:
         // [8,8,8,8,7,6,5,4,3,2,1,0,0]
-        <span class="missing-if-branch" title="if path not taken" >I</span>if ([7, 10, 13].indexOf(hand.length) == -1) {
-<span class="cstat-no" title="statement not covered" >            console.log("length of arr is illegal.");</span>
+        <span class="missing-if-branch" title="if path not taken" >I</span>if ([4, 7, 10, 13].indexOf(hand.length) == -1) {
+<span class="cstat-no" title="statement not covered" >            console.log("Peng length of arr is illegal.");</span>
 <span class="cstat-no" title="statement not covered" >            throw "Peng number of cards is illegal";</span>
         }
         return hand.reduce(function (total, x) {
@@ -1232,12 +1244,18 @@
     function checkMoveOk(stateTransition) {
         // We can assume that turnIndexBeforeMove and stateBeforeMove are legal, and we need
         // to verify that the move is OK.
-        <span class="missing-if-branch" title="if path not taken" >I</span>if (justInitiallized) {
-<span class="cstat-no" title="statement not covered" >            justInitiallized = false;</span>
-<span class="cstat-no" title="statement not covered" >            return;</span>
+        /*
+        if (justInitiallized) {
+          justInitiallized = false;
+          return;
         }
+        */
         var turnIndexBeforeMove = stateTransition.turnIndexBeforeMove;
         var stateBeforeMove = stateTransition.stateBeforeMove;
+        // Don't need to check if the game is just initiallized. 
+        <span class="missing-if-branch" title="if path not taken" >I</span>if (!stateBeforeMove) {
+<span class="cstat-no" title="statement not covered" >            return;</span>
+        }
         var move = stateTransition.move;
         var deltaValue = stateTransition.move.stateAfterMove.delta;
         var pai = deltaValue.pai;
@@ -1267,7 +1285,7 @@
 </div><!-- /wrapper -->
 <div class='footer quiet pad2 space-top1 center small'>
   Code coverage
-  generated by <a href="http://istanbul-js.org/" target="_blank">istanbul</a> at Wed Apr 06 2016 16:33:23 GMT-0400 (EDT)
+  generated by <a href="http://istanbul-js.org/" target="_blank">istanbul</a> at Thu Apr 07 2016 18:32:20 GMT-0400 (EDT)
 </div>
 </div>
 <script src="../prettify.js"></script>

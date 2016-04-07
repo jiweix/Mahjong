@@ -1,128 +1,400 @@
 var gameLogic;
 (function (gameLogic) {
-    gameLogic.ROWS = 3;
-    gameLogic.COLS = 3;
+    var justInitiallized = false;
     /** Returns the initial TicTacToe board, which is a ROWSxCOLS matrix containing ''. */
     function getInitialBoard() {
-        var board = [];
-        for (var i = 0; i < gameLogic.ROWS; i++) {
-            board[i] = [];
-            for (var j = 0; j < gameLogic.COLS; j++) {
-                board[i][j] = '';
+        var stock = [];
+        for (var i = 0; i < 136; i++) {
+            stock[i] = i;
+        }
+        stock[136] = 0;
+        for (var i = 0; i < 136; i++) {
+            var j = Math.floor(Math.random() * 136);
+            var temp = stock[i];
+            stock[i] = stock[j];
+            stock[j] = temp;
+        }
+        var p1 = { hand: [], open: [] };
+        var p2 = { hand: [], open: [] };
+        var move = [0, 0, 0, 0, 0, 1, 0];
+        var board = { stock: stock, px: p1, po: p2, legalMove: move, out: [], turn: -1 };
+        for (var i = 0; i < 6; i++) {
+            if (i % 2 == 0) {
+                fetchPai(board.stock, 4, board.px);
+            }
+            else {
+                fetchPai(board.stock, 4, board.po);
             }
         }
+        fetchPai(board.stock, 1, board.px);
+        fetchPai(board.stock, 1, board.po);
+        board.px.hand.sort(compareNumbers);
+        board.po.hand.sort(compareNumbers);
+        justInitiallized = true;
         return board;
+    }
+    function fetchPai(stock, count, player) {
+        for (var i = 0; i < count; i++) {
+            var temp = stock[stock[136]] / 4;
+            player.hand.push(Math.floor(temp));
+            stock[136]++;
+        }
+    }
+    function compareNumbers(a, b) {
+        return a - b;
+    }
+    function formatConvert(list) {
+        /*
+        example:
+        input:
+        [8,8,8,8,7,6,5,4,3,2,1,0,0,0]
+        output:
+        [[14, 3, 1, 1, 1, 1, 1, 1, 1, 4], [0, 0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0, 0, 0]]
+        */
+        var cardsList = [];
+        var w = [];
+        var t = [];
+        var s = [];
+        var z = [];
+        for (var k = 0; k < 9; k++) {
+            w.push(list.reduce(function (total, x) {
+                return x == k ? total + 1 : total;
+            }, 0));
+        }
+        for (var k = 9; k < 18; k++) {
+            t.push(list.reduce(function (total, x) {
+                return x == k ? total + 1 : total;
+            }, 0));
+        }
+        for (var k = 18; k < 27; k++) {
+            s.push(list.reduce(function (total, x) {
+                return x == k ? total + 1 : total;
+            }, 0));
+        }
+        for (var k = 27; k < 34; k++) {
+            z.push(list.reduce(function (total, x) {
+                return x == k ? total + 1 : total;
+            }, 0));
+        }
+        w.unshift(w.reduce(function (a, b) { return a + b; }));
+        t.unshift(t.reduce(function (a, b) { return a + b; }));
+        s.unshift(s.reduce(function (a, b) { return a + b; }));
+        z.unshift(z.reduce(function (a, b) { return a + b; }));
+        cardsList.push(w);
+        cardsList.push(t);
+        cardsList.push(s);
+        cardsList.push(z);
+        return cardsList;
+    }
+    function isLegal(list, flag) {
+        /*
+        Check if a list is legal
+        To be legal, the list should be able to remove three identical cards or to
+        remove three consecutive cards until the list is empty.
+        */
+        if (list[0] === 0) {
+            return true;
+        }
+        var index = 0;
+        for (var j = 1; j < list.length; j++) {
+            if (list[j] !== 0) {
+                index = j;
+                break;
+            }
+        }
+        var result = false;
+        if (list[index] >= 3) {
+            list[index] -= 3;
+            list[0] -= 3;
+            result = isLegal(list, flag);
+            list[index] += 3;
+            list[0] += 3;
+            return result;
+        }
+        if (!flag && index < 8 && list[index + 1] > 0 && list[index + 2] > 0) {
+            list[index] = list[index] - 1;
+            list[index + 1] = list[index + 1] - 1;
+            list[index + 2] = list[index + 2] - 1;
+            list[0] = list[0] - 3;
+            result = isLegal(list, flag);
+            list[index] = list[index] + 1;
+            list[index + 1] = list[index + 1] + 1;
+            list[index + 2] = list[index + 2] + 1;
+            list[0] = list[0] + 3;
+            return result;
+        }
+        return false;
+    }
+    function ifHu(cards, pai) {
+        /*
+        input:  arr of integer (range [0-34]) presenting current hand,
+                the possible lengths are 5, 8, 11, 14
+                0-8 represent Char 1~9
+                9-17 represent Circle 1~9
+                18-26 represent Bamboo 1~9
+                27-34 represent Special Char
+                example input: [8,8,8,8,7,6,5,4,3,2,1,0,0,0]
+        return: bool, true if this hand could win, false if not
+        */
+        var newcards = angular.copy(cards);
+        newcards.push(pai);
+        if ([5, 8, 11, 14].indexOf(newcards.length) == -1) {
+            console.log("Hu length of arr is illegal.");
+            throw "Hu number of cards is illegal";
+        }
+        var cardsNewFormat = formatConvert(newcards);
+        var kingPos = -1;
+        var kingExist = false;
+        for (var j = 0; j < 4; j++) {
+            var additionalCards = cardsNewFormat[j][0] % 3;
+            if (additionalCards == 1) {
+                return false;
+            }
+            if (additionalCards == 2) {
+                if (kingExist) {
+                    return false;
+                }
+                kingPos = j;
+                kingExist = true;
+            }
+        }
+        if (!kingExist) {
+            return false;
+        }
+        for (var j = 0; j < 4; j++) {
+            if (kingPos == j) {
+                continue;
+            }
+            else {
+                if (!isLegal(cardsNewFormat[j], j == 3)) {
+                    return false;
+                }
+            }
+        }
+        var kingList = cardsNewFormat[kingPos];
+        for (var j = 1; j < kingList.length; j++) {
+            if (kingList[j] >= 2) {
+                kingList[j] -= 2;
+                kingList[0] -= 2;
+                if (isLegal(kingList, kingPos == 3)) {
+                    return true;
+                }
+                else {
+                    kingList[j] += 2;
+                    kingList[0] += 2;
+                }
+            }
+        }
+        return false;
+    }
+    function ifChi(hand, target) {
+        if ([4, 7, 10, 13].indexOf(hand.length) == -1) {
+            console.log("Chi length of arr is illegal.");
+            throw "Chi number of cards is illegal";
+        }
+        // convert to [[14, 3, 1, 1, 1, 1, 1, 1, 1, 4], [0, 0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0, 0, 0]]
+        var cardsNewFormat = formatConvert(hand);
+        var stackIndex = Math.floor(target / 9);
+        var index = target % 9;
+        if (stackIndex == 3) {
+            return [0, 0, 0];
+        }
+        var targetList = cardsNewFormat[stackIndex];
+        var left = 0;
+        var middle = 0;
+        var right = 0;
+        // The index 0 in targetList is the total count. 
+        if (index >= 2) {
+            if (targetList[index] >= 1 && targetList[index - 1] >= 1) {
+                right = 1;
+            }
+        }
+        if (index >= 1 && index <= 7) {
+            if (targetList[index] >= 1 && targetList[index + 2] >= 1) {
+                middle = 1;
+            }
+        }
+        if (index <= 6) {
+            if (targetList[index + 2] >= 1 && targetList[index + 3] >= 1) {
+                left = 1;
+            }
+        }
+        return [left, middle, right];
+    }
+    function ifPeng(hand, target) {
+        // input:
+        // [8,8,8,8,7,6,5,4,3,2,1,0,0]
+        if ([4, 7, 10, 13].indexOf(hand.length) == -1) {
+            console.log("Peng length of arr is illegal.");
+            throw "Peng number of cards is illegal";
+        }
+        return hand.reduce(function (total, x) {
+            return x == target ? total + 1 : total;
+        }, 0) >= 2;
     }
     function getInitialState() {
         return { board: getInitialBoard(), delta: null };
     }
     gameLogic.getInitialState = getInitialState;
-    /**
-     * Returns true if the game ended in a tie because there are no empty cells.
-     * E.g., isTie returns true for the following board:
-     *     [['X', 'O', 'X'],
-     *      ['X', 'O', 'O'],
-     *      ['O', 'X', 'X']]
-     */
     function isTie(board) {
-        for (var i = 0; i < gameLogic.ROWS; i++) {
-            for (var j = 0; j < gameLogic.COLS; j++) {
-                if (board[i][j] === '') {
-                    // If there is an empty cell then we do not have a tie.
-                    return false;
-                }
-            }
-        }
-        // No empty cells, so we have a tie!
-        return true;
+        return board.stock[136] >= 136 && board.legalMove[5] === 0;
     }
-    /**
-     * Return the winner (either 'X' or 'O') or '' if there is no winner.
-     * The board is a matrix of size 3x3 containing either 'X', 'O', or ''.
-     * E.g., getWinner returns 'X' for the following board:
-     *     [['X', 'O', ''],
-     *      ['X', 'O', ''],
-     *      ['X', '', '']]
-     */
     function getWinner(board) {
-        var boardString = '';
-        for (var i = 0; i < gameLogic.ROWS; i++) {
-            for (var j = 0; j < gameLogic.COLS; j++) {
-                var cell = board[i][j];
-                boardString += cell === '' ? ' ' : cell;
-            }
-        }
-        var win_patterns = [
-            'XXX......',
-            '...XXX...',
-            '......XXX',
-            'X..X..X..',
-            '.X..X..X.',
-            '..X..X..X',
-            'X...X...X',
-            '..X.X.X..'
-        ];
-        for (var _i = 0; _i < win_patterns.length; _i++) {
-            var win_pattern = win_patterns[_i];
-            var x_regexp = new RegExp(win_pattern);
-            var o_regexp = new RegExp(win_pattern.replace(/X/g, 'O'));
-            if (x_regexp.test(boardString)) {
-                return 'X';
-            }
-            if (o_regexp.test(boardString)) {
-                return 'O';
-            }
-        }
         return '';
     }
     /**
      * Returns the move that should be performed when player
-     * with index turnIndexBeforeMove makes a move in cell row X col.
+     * with index turnIndexBeforeMove makes a move.
      */
-    function createMove(stateBeforeMove, row, col, turnIndexBeforeMove) {
+    function createMove(stateBeforeMove, movetype, pai, turnIndexBeforeMove) {
         if (!stateBeforeMove) {
             stateBeforeMove = getInitialState();
         }
         var board = stateBeforeMove.board;
-        if (board[row][col] !== '') {
-            throw new Error("One can only make a move in an empty position!");
-        }
-        if (getWinner(board) !== '' || isTie(board)) {
-            throw new Error("Can only make a move if the game is not over!");
-        }
         var boardAfterMove = angular.copy(board);
-        boardAfterMove[row][col] = turnIndexBeforeMove === 0 ? 'X' : 'O';
-        var winner = getWinner(boardAfterMove);
+        var currenntPlayer = (boardAfterMove.turn === 1 || boardAfterMove.turn === 2) ? 'O' : 'X';
         var endMatchScores;
-        var turnIndexAfterMove;
-        if (winner !== '' || isTie(boardAfterMove)) {
-            // Game over.
+        var turnIndexAfterMove = turnIndexBeforeMove;
+        if (movetype === 4) {
             turnIndexAfterMove = -1;
-            endMatchScores = winner === 'X' ? [1, 0] : winner === 'O' ? [0, 1] : [0, 0];
+            boardAfterMove.turn = -1;
+            endMatchScores = currenntPlayer === 'X' ? [1, 0] : [0, 1];
+        }
+        else if (movetype === 5 && isTie(board)) {
+            boardAfterMove.turn = -1;
+            turnIndexAfterMove = -1;
+            endMatchScores = [0, 0];
         }
         else {
-            // Game continues. Now it's the opponent's turn (the turn switches from 0 to 1 and 1 to 0).
-            turnIndexAfterMove = 1 - turnIndexBeforeMove;
+            boardAfterMove.turn = (boardAfterMove.turn + 1) % 4;
             endMatchScores = null;
         }
-        var delta = { row: row, col: col };
+        var playerToUpdate = currenntPlayer === "X" ? boardAfterMove.px : boardAfterMove.po;
+        var theOtherPlayer = currenntPlayer === "X" ? boardAfterMove.po : boardAfterMove.px;
+        /** current move is CHI- Left*/
+        if (movetype === 0) {
+            var pais = [pai + 1, pai + 2, pai];
+            movePaitoOpen(playerToUpdate, pais);
+        }
+        /** current move is CHI-  Middle*/
+        if (movetype === 1) {
+            var pais = [pai - 1, pai + 1, pai];
+            movePaitoOpen(playerToUpdate, pais);
+        }
+        /** current move is CHI- Right*/
+        if (movetype === 2) {
+            var pais = [pai - 1, pai - 2, pai];
+            movePaitoOpen(playerToUpdate, pais);
+        }
+        /** current move is Peng*/
+        if (movetype === 3) {
+            var pais = [pai, pai, pai];
+            movePaitoOpen(playerToUpdate, pais);
+        }
+        if (movetype <= 3) {
+            boardAfterMove.out.pop();
+        }
+        /** current move is Zhua*/
+        if (movetype === 5) {
+            fetchPai(boardAfterMove.stock, 1, playerToUpdate);
+            pai = playerToUpdate.hand[playerToUpdate.hand.length - 1];
+        }
+        /** current move is Da*/
+        if (movetype === 6) {
+            var index = playerToUpdate.hand.indexOf(pai);
+            if (index === -1) {
+                throw new Error("This pai does not belong to player x");
+            }
+            playerToUpdate.hand.splice(index, 1);
+            playerToUpdate.hand.sort(compareNumbers);
+            boardAfterMove.out.push(pai);
+            turnIndexAfterMove = (turnIndexBeforeMove + 1) % 2;
+        }
+        var checkhand = turnIndexAfterMove === 0 ? angular.copy(boardAfterMove.px.hand) : angular.copy(boardAfterMove.po.hand);
+        var npai = movetype === 5 ? checkhand.pop() : pai;
+        boardAfterMove.legalMove = checkLegalMove(checkhand, npai, movetype, boardAfterMove.turn % 2);
+        // Sort current hand
+        var currenthand = angular.copy(playerToUpdate.hand);
+        if (movetype === 5) {
+            var ZhuaPai = currenthand.pop();
+            playerToUpdate.hand = currenthand.sort(compareNumbers);
+            playerToUpdate.hand.push(ZhuaPai);
+        }
+        else {
+            playerToUpdate.hand = currenthand.sort(compareNumbers);
+        }
+        var delta = { pai: pai, movetype: movetype };
         var stateAfterMove = { delta: delta, board: boardAfterMove };
         return { endMatchScores: endMatchScores, turnIndexAfterMove: turnIndexAfterMove, stateAfterMove: stateAfterMove };
     }
     gameLogic.createMove = createMove;
+    function movePaitoOpen(player, pai) {
+        for (var i = 0; i < 2; i++) {
+            player.open.push(pai[i]);
+            var index = player.hand.indexOf(pai[i]);
+            if (index === -1) {
+                throw new Error("MovePaitoOPEN is illegal" + player.hand);
+            }
+            player.hand.splice(index, 1);
+        }
+        player.open.push(pai[2]);
+        player.open.sort(compareNumbers);
+    }
+    function checkLegalMove(hand, pai, movetype, turn) {
+        var legal = [];
+        if (turn === 1) {
+            legal = ifChi(hand, pai);
+            if (ifPeng(hand, pai)) {
+                legal.push(1);
+            }
+            else {
+                legal.push(0);
+            }
+            if (ifHu(hand, pai)) {
+                legal.push(1);
+            }
+            else {
+                legal.push(0);
+            }
+            legal.push(1);
+            legal.push(0);
+        }
+        else {
+            legal = [0, 0, 0, 0];
+            if ((movetype === 5 || movetype === 6) && ifHu(hand, pai)) {
+                legal.push(1);
+            }
+            else {
+                legal.push(0);
+            }
+            legal.push(0);
+            legal.push(1);
+        }
+        return legal;
+    }
     function checkMoveOk(stateTransition) {
         // We can assume that turnIndexBeforeMove and stateBeforeMove are legal, and we need
         // to verify that the move is OK.
+        /*
+        if (justInitiallized) {
+          justInitiallized = false;
+          return;
+        }
+        */
         var turnIndexBeforeMove = stateTransition.turnIndexBeforeMove;
         var stateBeforeMove = stateTransition.stateBeforeMove;
+        // Don't need to check if the game is just initiallized. 
+        if (!stateBeforeMove) {
+            return;
+        }
         var move = stateTransition.move;
         var deltaValue = stateTransition.move.stateAfterMove.delta;
-        var row = deltaValue.row;
-        var col = deltaValue.col;
-        var expectedMove = createMove(stateBeforeMove, row, col, turnIndexBeforeMove);
+        var pai = deltaValue.pai;
+        var movetype = deltaValue.movetype;
+        var expectedMove = createMove(stateBeforeMove, movetype, pai, turnIndexBeforeMove);
         if (!angular.equals(move, expectedMove)) {
             throw new Error("Expected move=" + angular.toJson(expectedMove, true) +
-                ", but got stateTransition=" + angular.toJson(stateTransition, true));
+                ", but got stateTransition=" + angular.toJson(stateTransition.move, true));
         }
     }
     gameLogic.checkMoveOk = checkMoveOk;
@@ -150,12 +422,30 @@ var game;
     game.canMakeMove = false;
     game.isComputerTurn = false;
     game.move = null;
-    game.state = null;
     game.isHelpModalShown = false;
+    /** added for Mahjong */
+    game.paiSelected = null;
+    game.cpai = null;
+    game.chand = null;
+    game.handindex = null;
+    game.opphandindex = null;
+    game.openindex = null;
+    game.oppopenindex = null;
+    game.playerHandLength = null;
+    game.opponentHandLength = null;
+    game.playerOpenLength = null;
+    game.opponentOpenLength = null;
+    game.outLength = null;
+    game.outindex = null;
+    game.player = null;
+    game.opp = null;
+    //export let playerIndexCounter : number = -1;
+    //let yourPlayerIndexAddjust : number = 0;
+    game.MOVE = ["LCHI", "MCHI", "RCHI", "PENG", "HU", "ZHUA", "DA"];
     function init() {
         translate.setTranslations(getTranslations());
         translate.setLanguage('en');
-        log.log("Translation of 'RULES_OF_TICTACTOE' is " + translate('RULES_OF_TICTACTOE'));
+        log.log("Translation of 'RULES_OF_MAHJONG' is " + translate('RULES_OF_MAHJONG'));
         resizeGameAreaService.setWidthToHeight(1);
         moveService.setGame({
             minNumberOfPlayers: 2,
@@ -179,21 +469,21 @@ var game;
     game.init = init;
     function getTranslations() {
         return {
-            RULES_OF_TICTACTOE: {
-                en: "Rules of TicTacToe_JX",
-                iw: "חוקי המשחק",
+            RULES_OF_MAHJONG: {
+                en: "Rules of Mahjong",
+                ch: "麻将规则",
             },
             RULES_SLIDE1: {
-                en: "You and your opponent take turns to mark the grid in an empty spot. The first mark is X, then O, then X, then O, etc.",
-                iw: "אתה והיריב מסמנים איקס או עיגול כל תור",
+                en: "You and your opponent take turns to try to HU.",
+                ch: "你和对手轮流抓牌打牌，看谁先胡。",
             },
             RULES_SLIDE2: {
-                en: "The first to mark a whole row, column or diagonal wins.",
-                iw: "הראשון שמסמן שורה, עמודה או אלכסון מנצח",
+                en: "You can CHI or PENG is necessary.",
+                ch: "如果需要，可以吃或碰。",
             },
             CLOSE: {
                 en: "Close",
-                iw: "סגור",
+                ch: "关闭",
             },
         };
     }
@@ -211,6 +501,13 @@ var game;
         game.isComputerTurn = false; // to make sure the computer can only move once.
         moveService.makeMove(aiService.findComputerMove(game.move));
     }
+    function getRange(index) {
+        var arr = [];
+        for (var j = 0; j < index; j++) {
+            arr.push(j);
+        }
+        return arr;
+    }
     function updateUI(params) {
         log.info("Game got updateUI:", params);
         game.animationEnded = false;
@@ -221,6 +518,22 @@ var game;
         }
         game.canMakeMove = game.move.turnIndexAfterMove >= 0 &&
             params.yourPlayerIndex === game.move.turnIndexAfterMove; // it's my turn
+        // Initiallize the pai for next move  
+        // need to consider option 4
+        game.cpai = game.state.board.out[game.state.board.out.length - 1];
+        game.player = params.yourPlayerIndex === 0 ? game.state.board.px : game.state.board.po;
+        game.opp = params.yourPlayerIndex === 0 ? game.state.board.po : game.state.board.px;
+        game.chand = game.player.hand;
+        game.playerHandLength = game.chand.length;
+        game.opponentHandLength = game.opp.hand.length;
+        game.playerOpenLength = game.player.open.length;
+        game.opponentOpenLength = game.opp.open.length;
+        game.outLength = game.state.board.out.length;
+        game.handindex = getRange(game.chand.length);
+        game.opphandindex = getRange(game.opp.hand.length);
+        game.openindex = getRange(game.player.open.length);
+        game.oppopenindex = getRange(game.opp.open.length);
+        game.outindex = getRange(game.outLength);
         // Is it the computer's turn?
         game.isComputerTurn = game.canMakeMove &&
             params.playersInfo[params.yourPlayerIndex].playerId === '';
@@ -238,44 +551,51 @@ var game;
             }
         }
     }
-    function cellClicked(row, col) {
-        log.info("Clicked on cell:", row, col);
-        if (window.location.search === '?throwException') {
-            throw new Error("Throwing the error because URL has '?throwException'");
+    function paiClicked(index) {
+        game.paiSelected = game.chand[index];
+    }
+    game.paiClicked = paiClicked;
+    function optionClicked(option) {
+        if (option === 6) {
+            if (game.paiSelected === null) {
+                log.info("You need to select a Pai Before DA");
+                return;
+            }
+            else {
+                game.cpai = game.paiSelected;
+            }
         }
+        else if (option === 5) {
+            game.cpai = null;
+        }
+        log.info("Making move ", game.MOVE[option]);
         if (!game.canMakeMove) {
             return;
         }
         try {
-            var nextMove = gameLogic.createMove(game.state, row, col, game.move.turnIndexAfterMove);
+            var nextMove = gameLogic.createMove(game.state, option, game.cpai, game.move.turnIndexAfterMove);
             game.canMakeMove = false; // to prevent making another move
             moveService.makeMove(nextMove);
         }
         catch (e) {
-            log.info(["Cell is already full in position:", row, col]);
+            log.info(["something funny is happenning ...", option, game.cpai]);
             return;
         }
     }
-    game.cellClicked = cellClicked;
-    function shouldShowImage(row, col) {
-        var cell = game.state.board[row][col];
-        return cell !== "";
+    game.optionClicked = optionClicked;
+    function ifLegalMove(index) {
+        if (!game.canMakeMove) {
+            return false;
+        }
+        else {
+            return game.state.board.legalMove[index] === 1;
+        }
     }
-    game.shouldShowImage = shouldShowImage;
-    function isPieceX(row, col) {
-        return game.state.board[row][col] === 'X';
+    game.ifLegalMove = ifLegalMove;
+    function getPaiImage(row, col) {
+        return '';
     }
-    game.isPieceX = isPieceX;
-    function isPieceO(row, col) {
-        return game.state.board[row][col] === 'O';
-    }
-    game.isPieceO = isPieceO;
-    function shouldSlowlyAppear(row, col) {
-        return !game.animationEnded &&
-            game.state.delta &&
-            game.state.delta.row === row && game.state.delta.col === col;
-    }
-    game.shouldSlowlyAppear = shouldSlowlyAppear;
+    game.getPaiImage = getPaiImage;
     function clickedOnModal(evt) {
         if (evt.target === evt.currentTarget) {
             evt.preventDefault();
