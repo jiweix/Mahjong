@@ -8,8 +8,8 @@ var gameLogic;
             stock[i] = i;
         }
         stock[136] = 0;
-        for (var i = 0; i < 136; i++) {
-            var j = Math.floor(Math.random() * 136);
+        for (var i = 135; i >= 0; i--) {
+            var j = Math.floor(Math.random() * i);
             var temp = stock[i];
             stock[i] = stock[j];
             stock[j] = temp;
@@ -398,17 +398,6 @@ var gameLogic;
         }
     }
     gameLogic.checkMoveOk = checkMoveOk;
-    function forSimpleTestHtml() {
-        var move = gameLogic.createMove(null, 0, 0, 0);
-        log.log("move=", move);
-        var params = {
-            turnIndexBeforeMove: 0,
-            stateBeforeMove: null,
-            move: move,
-            numberOfPlayers: 2 };
-        gameLogic.checkMoveOk(params);
-    }
-    gameLogic.forSimpleTestHtml = forSimpleTestHtml;
 })(gameLogic || (gameLogic = {}));
 //# sourceMappingURL=gameLogic.js.map
 ;

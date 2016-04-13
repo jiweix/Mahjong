@@ -301,10 +301,10 @@ module gameLogic {
     let currenntPlayer: string = (boardAfterMove.turn === 1 || boardAfterMove.turn === 2) ? 'O' : 'X';
     let endMatchScores: number[];
     let turnIndexAfterMove: number = turnIndexBeforeMove;
-    if (movetype === 4) {
+    if (movetype === 4) {   
         turnIndexAfterMove = -1;
         boardAfterMove.turn = -1;
-        endMatchScores = currenntPlayer === 'X' ? [1, 0] : [0, 1];
+        endMatchScores = currenntPlayer === 'X' ? [1, 0] : [0, 1];    
     } else if (movetype === 5 && isTie(board)) {
         boardAfterMove.turn = -1;
         turnIndexAfterMove = -1;
@@ -438,7 +438,7 @@ module gameLogic {
           ", but got stateTransition=" + angular.toJson(stateTransition.move, true))
     }
   }
-  
+  /*
   export function forSimpleTestHtml() {
     var move = gameLogic.createMove(null, 0, 0, 0);
     log.log("move=", move);
@@ -449,4 +449,5 @@ module gameLogic {
       numberOfPlayers: 2};
     gameLogic.checkMoveOk(params);
   }
+  */
 }

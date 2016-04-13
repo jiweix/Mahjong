@@ -398,16 +398,5 @@ var gameLogic;
         }
     }
     gameLogic.checkMoveOk = checkMoveOk;
-    function forSimpleTestHtml() {
-        var move = gameLogic.createMove(null, 0, 0, 0);
-        log.log("move=", move);
-        var params = {
-            turnIndexBeforeMove: 0,
-            stateBeforeMove: null,
-            move: move,
-            numberOfPlayers: 2 };
-        gameLogic.checkMoveOk(params);
-    }
-    gameLogic.forSimpleTestHtml = forSimpleTestHtml;
 })(gameLogic || (gameLogic = {}));
 //# sourceMappingURL=gameLogic.js.map
