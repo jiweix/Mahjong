@@ -109,23 +109,23 @@
     </div>
     
     <div id="Option"
-      style="position:absolute; top:68%; left:0; width:100%; height:10%;">
+      style="position:absolute; top:68%; left:0; width:100%; height:12%;">
       <div class="space_holder" 
         style="position:absolute; top:0%; left:0; width:30%; height:100%;">
       </div>
       <div 
         style="position:absolute; top:0%; left:30%; width:70%; height:100%;">
         <img ng-repeat="index in [0, 1, 2, 3, 4, 5, 6]" ng-if="game.ifLegalMove(index)" 
-          src="./imgs/00{{index+1}}.png" 
-          alt="Smiley face" height="100%"
+          src="./imgs/00{{index+1}}.svg" 
+          alt="Smiley face"
           ng-click="game.optionClicked(index)"
-          style="position:absolute; top:0%; right:{{(6-index)*15}}%; height:60%;">
+          style="position:absolute; top:0%; right:{{(6-index)*15}}%; height:100%;">
       </div>
     </div>
     
     
     <div id="playerPai"
-      style="position:absolute; top:78%; left:0; width:100%; height:15%;">
+      style="position:absolute; top:80%; left:0; width:100%; height:15%;">
       <div id="palyerOpen"
         style="position:absolute; top:20%; left:0%; width:{{game.playerOpenLength*7}}%; height:100%;">
         <img ng-repeat="index in game.openindex" id="playeropen{{index}}" 
