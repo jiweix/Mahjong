@@ -75,7 +75,7 @@
     </div>
   </div>
 
-<div id="gameArea" ng-cloak style="background-image: url(./imgs/background.jpg); background-size:100%;">
+<div id="gameArea" style="background-image: url(./imgs/background.jpg); background-size:100%;">
   
   <div id="paiStack1" 
     style="position:absolute; top:0; left:0%; width:10%; height:100%;">
@@ -89,14 +89,14 @@
       
       <div id="oppOpen"
         style="position:absolute; top:20%; left:0%; width:{{game.opponentOpenLength*7}}%; height:100%;">
-        <img ng-cloak ng-repeat="index in game.oppopenindex" id="oppopen{{index}}" 
+        <img ng-repeat="index in game.oppopenindex" id="oppopen{{index}}" 
           height="50%" src="./imgs/{{game.opp.open[index]}}.svg" alt="Smiley face"
           >
       </div>
       <!-- Opponent hand-->
       <div id="oppHand"
         style="position:absolute; top:20%; right:0; width:{{game.opponentHandLength*7}}%; height:100%;">
-        <img ng-cloak ng-repeat="index in game.opphandindex" 
+        <img ng-repeat="index in game.opphandindex" 
           height="45%" ng-src="./imgs/b.svg" alt="Smiley face">
          
       </div>
@@ -104,7 +104,7 @@
     
     <div id="outPai"
       style="position:absolute; top:25%; left:10%; width:80%; height:40%;">
-      <img ng-cloak ng-repeat="index in game.outindex" id="out{{index}}" 
+      <img ng-repeat="index in game.outindex" id="out{{index}}" 
           height="15%" ng-src="./imgs/{{game.state.board.out[index]}}.svg" alt="Smiley face">
     </div>
     
@@ -124,13 +124,13 @@
       style="position:absolute; top:78%; left:0; width:100%; height:15%;">
       <div id="palyerOpen"
         style="position:absolute; top:20%; left:0%; width:{{game.playerOpenLength*7}}%; height:100%;">
-        <img ng-cloak ng-repeat="index in game.openindex" id="playeropen{{index}}" 
+        <img ng-repeat="index in game.openindex" id="playeropen{{index}}" 
           height="50%" ng-src="./imgs/{{game.player.open[index]}}.svg" alt="Smiley face"
           >
       </div>
       <div id="palyerHand"
         style="position:absolute; top:20%; right:0; width:{{game.playerHandLength*7}}%; height:100%;">
-        <img ng-cloak style="position: absolute; width: 7%; height: 50%; top: 0; left: {{index*7}}%;"
+        <img style="position: absolute; height: 50%; top: 0;"
            ng-repeat="index in game.handindex" id="playerhand{{index}}" 
            ng-src="./imgs/{{game.chand[index]}}.svg" alt="Smiley face"
            ng-click="game.paiClicked(index)">
