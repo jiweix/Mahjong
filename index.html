@@ -153,9 +153,10 @@
       </div>
       <div id="palyerHand"
         style="position:absolute; top:20%; right:0; width:{{game.playerHandLength*7}}%; height:100%;">
-        <img ng-cloak ng-repeat="index in game.handindex" id="playerhand{{index}}" 
-          height="50%" width="7%" ng-src="./imgs/{{game.chand[index]}}.svg" alt="Smiley face"
-          ng-click="game.paiClicked(index)">
+        <img ng-cloak style="position: absolute; width: 7%; height: 50%; top: 0; left: {{index*7}}%;"
+           ng-repeat="index in game.handindex" id="playerhand{{index}}" 
+           ng-src="./imgs/{{game.chand[index]}}.svg" alt="Smiley face"
+           ng-click="game.paiClicked(index)">
          
       </div>
     </div>

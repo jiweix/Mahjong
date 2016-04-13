@@ -8,8 +8,8 @@ var gameLogic;
             stock[i] = i;
         }
         stock[136] = 0;
-        for (var i = 0; i < 136; i++) {
-            var j = Math.floor(Math.random() * 136);
+        for (var i = 135; i >= 0; i--) {
+            var j = Math.floor(Math.random() * i);
             var temp = stock[i];
             stock[i] = stock[j];
             stock[j] = temp;

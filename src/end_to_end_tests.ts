@@ -1,5 +1,6 @@
 // This file has end-to-end tests using protractor, see:
 // https://github.com/angular/protractor/blob/master/docs/toc.md 
+/*
 declare var require: (module: string) => any;
 function expectEmptyBrowserLogs() {
   browser.manage().logs().get('browser').then(function(browserLog) {
@@ -171,3 +172,4 @@ describe('TicTacToe', function() {
     expectPiece(0, 0, 'X');
   });
 });
+*/
