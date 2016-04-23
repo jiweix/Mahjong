@@ -463,12 +463,12 @@ var game;
                 ch: "麻将规则",
             },
             RULES_SLIDE1: {
-                en: "You and your opponent take turns to try to HU.",
-                ch: "你和对手轮流抓牌打牌，看谁先胡。",
+                en: "Try to match you tiles to a pattern that can HU by moves including CHI, PONG, ZHUA, DA",
+                ch: "通过不断抓、打、吃、碰达到和牌的目的。",
             },
             RULES_SLIDE2: {
-                en: "You can CHI or PENG is necessary.",
-                ch: "如果需要，可以吃或碰。",
+                en: "Your tiles should include ONE pair, and the rest match XXX or XYZ pattern.",
+                ch: "和牌需要有一对将牌，其余的满足三个相同牌或者三个连续牌。",
             },
             CLOSE: {
                 en: "Close",

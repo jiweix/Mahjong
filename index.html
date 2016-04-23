@@ -64,11 +64,14 @@
         <div class="modal-body">
           <carousel style="height: 150px">
             <slide>
-              <table>
+              <table align="center">
                 <tr>
                   <td id="e2e_test_rules_slide1_text">
                     {{ 'RULES_SLIDE1' | translate }}
                   </td>
+                  
+                </tr>
+                <tr>
                   <td>
                     <img src="imgs/HelpSlide1.png" alt="Help slide 1" style="height:100px;">
                   </td>
@@ -76,15 +79,18 @@
               </table>
             </slide>
             <slide>
-              <table>
+              <table align="center">
                 <tr>
                   <td id="e2e_test_rules_slide2_text">
                   {{ 'RULES_SLIDE2' | translate }}
                   </td>
+                  
+                </tr>
+                <tr>
                   <td>
                     <img src="imgs/HelpSlide2.png" alt="Help slide 2" style="height:100px;">
                   </td>
-                </tr>
+                 </tr>
               </table>
             </slide>
           </carousel>
@@ -110,25 +116,25 @@
     <div id="oppPai"
       style="position:absolute; top:8%; left:0; width:100%; height:15%;">
       
-      <div id="oppOpen"
+      <div id="oppOpen" class="object"
         style="position:absolute; top:20%; left:0%; width:{{game.opponentOpenLength*7}}%; height:100%;">
-        <img ng-repeat="index in game.oppopenindex" id="oppopen{{index}}" 
-          height="70%" src="./imgs/{{game.opp.open[index]}}.svg" alt="Smiley face"
+        <img class="svgclass" ng-repeat="index in game.oppopenindex" id="oppopen{{index}}" 
+          height="70%" src="./imgs/{{game.opp.open[index]}}.png" alt="Smiley face"
           >
       </div>
       <!-- Opponent hand-->
-      <div id="oppHand"
+      <div id="oppHand" class="object"
         style="position:absolute; top:20%; right:0; width:{{game.opponentHandLength*7}}%; height:100%;">
-        <img ng-repeat="index in game.opphandindex" 
-          height="70%" ng-src="./imgs/b.svg" alt="Smiley face">
+        <img class="svgclass" ng-repeat="index in game.opphandindex" 
+          height="70%" ng-src="./imgs/b.png" alt="Smiley face">
          
       </div>
     </div>
     
-    <div id="outPai"
+    <div id="outPai" class="object"
       style="position:absolute; top:25%; left:10%; width:80%; height:45%;">
-      <img ng-repeat="index in game.outindex" id="out{{index}}" 
-          height="15%" ng-src="./imgs/{{game.state.board.out[index]}}.svg" alt="Smiley face">
+      <img class="svgclass" ng-repeat="index in game.outindex" id="out{{index}}" 
+          height="18%" ng-src="./imgs/{{game.state.board.out[index]}}.png" alt="Smiley face">
     </div>
     
     <div id="Option"
@@ -136,9 +142,9 @@
       <div class="space_holder" 
         style="position:absolute; top:0%; left:0; width:30%; height:100%;">
       </div>
-      <div 
+      <div class="object"
         style="position:absolute; top:0%; left:30%; width:70%; height:100%;">
-        <img ng-repeat="index in [0, 1, 2, 3, 4, 5, 6]" ng-if="game.ifLegalMove(index)" 
+        <img class="svgclass" ng-repeat="index in [0, 1, 2, 3, 4, 5, 6]" ng-if="game.ifLegalMove(index)" 
           src="./imgs/00{{index+1}}.svg" 
           alt="Smiley face"
           ng-click="game.optionClicked(index)"
@@ -147,21 +153,21 @@
     </div>
     
     
-    <div id="playerPai"
+    <div id="playerPai" class="object"
       style="position:absolute; top:80%; left:0; width:100%; height:15%;">
       <div id="palyerOpen"
         style="position:absolute; top:20%; left:0%; width:{{game.playerOpenLength*7}}%; height:100%;">
-        <img ng-repeat="index in game.openindex" id="playeropen{{index}}" 
-          height="75%" ng-src="./imgs/{{game.player.open[index]}}.svg" alt="Smiley face"
+        <img class="svgclass" ng-repeat="index in game.openindex" id="playeropen{{index}}" 
+          height="78%" ng-src="./imgs/{{game.player.open[index]}}.png" alt="Smiley face"
           >
       </div>
-      <div id="palyerHand"
+      <div id="palyerHand" class="object"
         style="position:absolute; top:20%; right:0; width:{{game.playerHandLength*7}}%; height:100%;">
-        <img 
+        <img class="svgclass"
            ng-repeat="index in game.handindex" id="playerhand{{index}}" 
-           ng-src="./imgs/{{game.chand[index]}}.svg" alt="Smiley face"
+           ng-src="./imgs/{{game.chand[index]}}.png" alt="Smiley face"
            ng-click="game.paiClicked(index)"
-           height="75%" top="0">
+           height="78%" top="0">
          
       </div>
     </div>
