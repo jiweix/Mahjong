@@ -83,11 +83,9 @@
 
 <div id="gameArea" >
   
-  <div id="paiStack1" 
-    style="position:absolute; top:0; left:0%; width:10%; height:100%;">
-  </div>
+  
   <div id="MainArea" 
-    style="position:absolute; top:0; left:10%; width:80%; height:100%;">
+    style="position:absolute; top:0; left:00%; width:100%; height:100%;">
     <div class="spaceholder"
       style="position:absolute; top:0%; left:0%; width:100%; height:8%;"></div>
     <div id="oppPai"
@@ -96,14 +94,14 @@
       <div id="oppOpen" class="object"
         style="position:absolute; top:20%; left:0%; width:{{game.opponentOpenLength*7}}%; height:100%;">
         <img class="svgclass" ng-repeat="index in game.oppopenindex" id="oppopen{{index}}" 
-          height="70%" src="./imgs/{{game.opp.open[index]}}.png" alt="Smiley face"
+          height="88%" src="./imgs/{{game.opp.open[index]}}.png" alt="Smiley face"
           >
       </div>
       <!-- Opponent hand-->
       <div id="oppHand" class="object"
         style="position:absolute; top:20%; right:0; width:{{game.opponentHandLength*7}}%; height:100%;">
         <img class="svgclass" ng-repeat="index in game.opphandindex" 
-          height="70%" ng-src="./imgs/b.png" alt="Smiley face">
+          height="88%" ng-src="./imgs/b.png" alt="Smiley face">
          
       </div>
     </div>
@@ -135,7 +133,7 @@
       <div id="palyerOpen"
         style="position:absolute; top:20%; left:0%; width:{{game.playerOpenLength*7}}%; height:100%;">
         <img class="svgclass" ng-repeat="index in game.openindex" id="playeropen{{index}}" 
-          height="78%" ng-src="./imgs/{{game.player.open[index]}}.png" alt="Smiley face"
+          height="100%" ng-src="./imgs/{{game.player.open[index]}}.png" alt="Smiley face"
           >
       </div>
       <div id="palyerHand" class="object"
@@ -144,7 +142,7 @@
            ng-repeat="index in game.handindex" id="playerhand{{index}}" 
            ng-src="./imgs/{{game.chand[index]}}.png" alt="Smiley face"
            ng-click="game.paiClicked(index)"
-           height="78%" top="0">
+           height="100%" top="0">
          
       </div>
     </div>
@@ -152,9 +150,7 @@
       style="position:absolute; top:0%; left:0%; width:100%; height:7%;"></div>
   </div>
   
-  <div id="paiStack2" 
-    style="position:absolute; top:0; left:90%; width:10%; height:100%;">
-  </div>
+ 
 
 </div>
 </body>
