@@ -37,3 +37,8 @@ td {
 	font-weight: bold;
 	color:#fff;
 }
+.contrast {
+	-webkit-filter: contrast(160%); 
+	filter: contrast(160%);
+	
+}

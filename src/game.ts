@@ -29,6 +29,7 @@ module game {
   export let outindex : number[] = null;
   export let player : Player = null;
   export let opp : Player = null;
+  export let selectedIndex : number = -1;
   //export let playerIndexCounter : number = -1;
   //let yourPlayerIndexAddjust : number = 0;
   
@@ -105,7 +106,7 @@ module game {
     }
     return arr;
   }
-
+ 
   function updateUI(params: IUpdateUI): void {
     log.info("Game got updateUI:", params);
     animationEnded = false;
@@ -161,6 +162,7 @@ module game {
 
   export function paiClicked(index : number): void {
     paiSelected = chand[index];
+    selectedIndex = index;
   }
   
   export function optionClicked(option : number):void {

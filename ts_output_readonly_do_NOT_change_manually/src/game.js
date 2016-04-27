@@ -25,6 +25,7 @@ var game;
     game.outindex = null;
     game.player = null;
     game.opp = null;
+    game.selectedIndex = -1;
     //export let playerIndexCounter : number = -1;
     //let yourPlayerIndexAddjust : number = 0;
     game.MOVE = ["LCHI", "MCHI", "RCHI", "PENG", "HU", "ZHUA", "DA"];
@@ -139,6 +140,7 @@ var game;
     }
     function paiClicked(index) {
         game.paiSelected = game.chand[index];
+        game.selectedIndex = index;
     }
     game.paiClicked = paiClicked;
     function optionClicked(option) {
