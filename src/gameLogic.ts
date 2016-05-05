@@ -381,7 +381,7 @@ module gameLogic {
           player.hand.splice(index, 1);
       }
       player.open.push(pai[2]);
-      player.open.sort(compareNumbers);
+      //player.open.sort(compareNumbers);
   }
   
   function checkLegalMove (hand: paiStack, pai: number, movetype: number, turn: number): legalmove {
