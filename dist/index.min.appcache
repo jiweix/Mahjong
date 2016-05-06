@@ -3,12 +3,12 @@ CACHE MANIFEST
 # Time: Tue Apr 26 2016 15:52:21 GMT-0400 (EDT)
 
 CACHE:
-http://ajax.googleapis.com/ajax/libs/angularjs/1.4.9/angular.min.js
-http://ajax.googleapis.com/ajax/libs/angularjs/1.4.9/angular-touch.min.js
-http://cdnjs.cloudflare.com/ajax/libs/angular-ui-bootstrap/0.12.1/ui-bootstrap-tpls.min.js
-http://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css
-http://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/fonts/glyphicons-halflings-regular.woff
-http://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/fonts/glyphicons-halflings-regular.ttf
+js/angular.min.js
+js/angular-touch.min.js
+js/ui-bootstrap-tpls.min.js
+css/bootstrap.min.css
+imgs/glyphicons-halflings-regular.woff
+imgs/glyphicons-halflings-regular.ttf
 http://yoav-zibin.github.io/emulator/dist/turnBasedServices.3.min.js
 http://yoav-zibin.github.io/emulator/main.css
 js/everything.min.js

@@ -115,7 +115,7 @@
       style="position:absolute; top:2%; left:0; width:100%; height:15%;">
       
       <div id="oppOpen" class="object"
-        style="position:absolute; top:20%; left:0%; width:{{game.opponentOpenLength*7}}%; height:100%;">
+        style="position:absolute; top:20%; left:0%; width:{{game.opponentOpenLength*7}}%; height:100%;transform: rotate(180deg);">
         <img class="svgclass" ng-repeat="index in game.oppopenindex" id="oppopen{{index}}" 
           height="88%" src="./imgs/{{game.opp.open[index]}}.png" alt="Smiley face"
           >
@@ -127,14 +127,12 @@
           height="88%" ng-src="./imgs/b.png" alt="Smiley face">
          
       </div>
-    </div>
-    
+    </div>   
     <div id="outPai" class="object"
-      style="position:absolute; top:17%; left:10%; width:80%; height:51%;">
+      style="position:absolute; top:20%; left:10%; width:80%; height:45%;">
       <img class="svgclass" ng-repeat="index in game.outindex" id="out{{index}}" 
           height="18%" ng-src="./imgs/{{game.state.board.out[index]}}.png" alt="Smiley face">
     </div>
-    
     <div id="Option"
       style="position:absolute; top:68%; left:0; width:100%; height:12%;">
       <div class="space_holder" 
