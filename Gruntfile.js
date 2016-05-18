@@ -169,10 +169,17 @@ module.exports = function(grunt) {
         options: {
           basePath: '.',
           cache: [
-            'http://ajax.googleapis.com/ajax/libs/angularjs/1.4.9/angular.min.js',
-            'http://ajax.googleapis.com/ajax/libs/angularjs/1.4.9/angular-touch.min.js',
-            'http://cdnjs.cloudflare.com/ajax/libs/angular-ui-bootstrap/0.12.1/ui-bootstrap-tpls.min.js',
-            'http://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css',
+            'js/angular.min.js',
+            'js/angular-touch.min.js',
+            'js/ui-bootstrap-tpls.min.js',
+            'css/bootstrap.min.css',
+            'imgs/glyphicons-halflings-regular.woff',
+            'imgs/glyphicons-halflings-regular.ttf',
+
+            //'http://ajax.googleapis.com/ajax/libs/angularjs/1.4.9/angular.min.js',
+            //'http://ajax.googleapis.com/ajax/libs/angularjs/1.4.9/angular-touch.min.js',
+            //'http://cdnjs.cloudflare.com/ajax/libs/angular-ui-bootstrap/0.12.1/ui-bootstrap-tpls.min.js',
+            //'http://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css',
             // glyphicons for the carousel
             'http://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/fonts/glyphicons-halflings-regular.woff',
             'http://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/fonts/glyphicons-halflings-regular.ttf',
