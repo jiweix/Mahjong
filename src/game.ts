@@ -17,6 +17,7 @@ module game {
   export let paiSelected : number = null;
   export let cpai : number = null;
   export let chand: number[] = null;
+  export let ohand: number[] = null;
   export let handindex : number[] = null;
   export let opphandindex : number[] = null;
   export let openindex : number[] = null;
@@ -30,6 +31,7 @@ module game {
   export let player : Player = null;
   export let opp : Player = null;
   export let selectedIndex : number = -1;
+  export let ifEnd : boolean = false;
   //export let playerIndexCounter : number = -1;
   //let yourPlayerIndexAddjust : number = 0;
   
@@ -117,6 +119,7 @@ module game {
       state = gameLogic.getInitialState();
     }
 
+    ifEnd = params.move.turnIndexAfterMove == -1;
     
     canMakeMove = move.turnIndexAfterMove >= 0 && // game is ongoing
       params.yourPlayerIndex === move.turnIndexAfterMove; // it's my turn
@@ -129,6 +132,7 @@ module game {
     opp = params.yourPlayerIndex === 0? state.board.po: state.board.px;
        
     chand = player.hand;
+    ohand = opp.hand;
     
     playerHandLength = chand.length;
     opponentHandLength = opp.hand.length;

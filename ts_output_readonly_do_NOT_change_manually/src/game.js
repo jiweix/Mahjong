@@ -13,6 +13,7 @@ var game;
     game.paiSelected = null;
     game.cpai = null;
     game.chand = null;
+    game.ohand = null;
     game.handindex = null;
     game.opphandindex = null;
     game.openindex = null;
@@ -26,6 +27,7 @@ var game;
     game.player = null;
     game.opp = null;
     game.selectedIndex = -1;
+    game.ifEnd = false;
     //export let playerIndexCounter : number = -1;
     //let yourPlayerIndexAddjust : number = 0;
     game.MOVE = ["LCHI", "MCHI", "RCHI", "PENG", "HU", "ZHUA", "DA"];
@@ -103,6 +105,7 @@ var game;
         if (!game.state) {
             game.state = gameLogic.getInitialState();
         }
+        game.ifEnd = params.move.turnIndexAfterMove == -1;
         game.canMakeMove = game.move.turnIndexAfterMove >= 0 &&
             params.yourPlayerIndex === game.move.turnIndexAfterMove; // it's my turn
         // Initiallize the pai for next move  
@@ -111,6 +114,7 @@ var game;
         game.player = params.yourPlayerIndex === 0 ? game.state.board.px : game.state.board.po;
         game.opp = params.yourPlayerIndex === 0 ? game.state.board.po : game.state.board.px;
         game.chand = game.player.hand;
+        game.ohand = game.opp.hand;
         game.playerHandLength = game.chand.length;
         game.opponentHandLength = game.opp.hand.length;
         game.playerOpenLength = game.player.open.length;

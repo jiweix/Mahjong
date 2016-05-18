@@ -26,8 +26,11 @@
 
 </head>
 <body class="ng-cloak" style="background-color:#309040;">
+  
+  <!-- Don't need this button anymore
   <div id="e2e_test_open_rules_modal" class="help-tip" ng-click="game.isHelpModalShown = true" aria-hidden="true"></div>
-
+  -->
+  
   <div class="overlayModal" ng-click="game.clickedOnModal($event)"
       ng-class="{zeroOpacity: !game.isHelpModalShown, oneOpacity: game.isHelpModalShown}" aria-hidden="true">
     <div class="modal-dialog">
@@ -97,13 +100,21 @@
           height="88%" src="./imgs/{{game.opp.open[index]}}.png" alt="Smiley face"
           >
       </div>
-      <!-- Opponent hand-->
+      <!-- Opponent hand while not ended-->
       <div id="oppHand" class="object"
+        ng-if="!game.ifEnd"
         style="position:absolute; top:20%; right:0; width:{{game.opponentHandLength*7}}%; height:100%;">
         <img class="svgclass" ng-repeat="index in game.opphandindex" 
-          height="88%" ng-src="./imgs/b.png" alt="Smiley face">
-         
+          height="88%" ng-src="./imgs/b.png" alt="Smiley face">        
       </div>
+      <!-- Opponent hand ended-->
+      <div id="oppHand" class="object"
+        ng-if="game.ifEnd"
+        style="position:absolute; top:20%; right:0; width:{{game.opponentHandLength*7}}%; height:100%;">
+        <img class="svgclass" ng-repeat="index in game.opphandindex" 
+          height="88%" ng-src="./imgs/{{game.ohand[index]}}.png" alt="Smiley face">        
+      </div>
+      
     </div>   
     <div id="outPai" class="object"
       style="position:absolute; top:20%; left:10%; width:80%; height:45%;">
