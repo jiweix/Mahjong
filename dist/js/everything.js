@@ -432,6 +432,7 @@ var game;
     game.selectedIndex = -1;
     game.ifEnd = false;
     game.paiLeft = null;
+    game.canSelectPai = false;
     //export let playerIndexCounter : number = -1;
     //let yourPlayerIndexAddjust : number = 0;
     game.MOVE = ["LCHI", "MCHI", "RCHI", "PENG", "HU", "ZHUA", "DA"];
@@ -512,6 +513,9 @@ var game;
         game.ifEnd = params.move.turnIndexAfterMove == -1;
         game.canMakeMove = game.move.turnIndexAfterMove >= 0 &&
             params.yourPlayerIndex === game.move.turnIndexAfterMove; // it's my turn
+        if (game.canMakeMove) {
+            game.canSelectPai = game.state.board.turn % 2 === 0;
+        }
         // Initiallize the pai for next move  
         // need to consider option 4
         game.cpai = game.state.board.out[game.state.board.out.length - 1];
@@ -548,8 +552,10 @@ var game;
         }
     }
     function paiClicked(index) {
-        game.paiSelected = game.chand[index];
-        game.selectedIndex = index;
+        if (game.canMakeMove) {
+            game.paiSelected = game.chand[index];
+            game.selectedIndex = index;
+        }
     }
     game.paiClicked = paiClicked;
     function optionClicked(option) {
@@ -589,10 +595,6 @@ var game;
         }
     }
     game.ifLegalMove = ifLegalMove;
-    function getPaiImage(row, col) {
-        return '';
-    }
-    game.getPaiImage = getPaiImage;
     function clickedOnModal(evt) {
         if (evt.target === evt.currentTarget) {
             evt.preventDefault();
