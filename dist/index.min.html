@@ -158,7 +158,7 @@
            ng-repeat="index in game.handindex" id="playerhand{{index}}" 
            ng-src="./imgs/{{game.chand[index]}}.png" alt="Smiley face"
            ng-click="selection.selectedNode = index; game.paiClicked(index)"
-           ng-class="{contrast:selection.selectedNode == index}"
+           ng-class="{contrast:selection.selectedNode == index && game.canSelectPai}"
            height="100%">
          
       </div>

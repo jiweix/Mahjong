@@ -33,6 +33,7 @@ module game {
   export let selectedIndex : number = -1;
   export let ifEnd : boolean = false;
   export let paiLeft : number = null;
+  export let canSelectPai = false;
   //export let playerIndexCounter : number = -1;
   //let yourPlayerIndexAddjust : number = 0;
   
@@ -123,7 +124,9 @@ module game {
     
     canMakeMove = move.turnIndexAfterMove >= 0 && // game is ongoing
       params.yourPlayerIndex === move.turnIndexAfterMove; // it's my turn
-    
+    if (canMakeMove) {
+      canSelectPai = state.board.turn%2 === 0;
+    }
     // Initiallize the pai for next move  
     // need to consider option 4
     cpai = state.board.out[state.board.out.length - 1];
@@ -165,8 +168,10 @@ module game {
   }
 
   export function paiClicked(index : number): void {
-    paiSelected = chand[index];
-    selectedIndex = index;
+    if (canMakeMove) {
+      paiSelected = chand[index];
+      selectedIndex = index;
+    }
   }
   
   export function optionClicked(option : number):void {
@@ -202,10 +207,6 @@ module game {
     } else {
       return state.board.legalMove[index] === 1;
     }
-  }
-
-  export function getPaiImage(row:number, col: number): string {
-    return '';
   }
   
   export function clickedOnModal(evt: Event) {
