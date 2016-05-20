@@ -115,9 +115,9 @@ module.exports = function(grunt) {
     copy: {
       imgs: {
         expand: true,
-        src: 'imgs/*.*',
-        dest: 'dist/'
-      },
+        src: 'imgs/**', 
+        dest: 'dist/',
+      }, 
     },
     concat: {
       options: {
