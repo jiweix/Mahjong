@@ -142,7 +142,7 @@
     <div id="outPai" class="object"
       style="position:absolute; top:25%; left:10%; width:80%; height:45%;">
       <img class="svgclass" ng-repeat="index in game.outindex" id="out{{index}}" 
-          height="18%" ng-src="./imgs/{{game.state.board.out[index]}}.png" alt="Smiley face">
+          height="18%" ng-src="./imgs/tiles_lying/{{game.state.board.out[index]}}.png" alt="Smiley face">
     </div>
     <div id="Option"
 
@@ -174,14 +174,29 @@
       <div id="palyerOpen"
         style="position:absolute; top:20%; left:0%; width:{{game.playerOpenLength*7}}%; height:100%;">
         <img class="svgclass" ng-repeat="index in game.openindex" id="playeropen{{index}}" 
-          height="100%" ng-src="./imgs/{{game.player.open[index]}}.png" alt="Smiley face"
+          height="100%" ng-src="./imgs/tiles_lying/{{game.player.open[index]}}.png" alt="Smiley face"
           >
       </div>
+      
+      
       <div id="palyerHand" class="object" 
+        ng-if="!game.ifEnd"
         style="position:absolute; top:20%; right:0; width:{{game.playerHandLength*7}}%; height:100%;">
         <img class="svgclass"
            ng-repeat="index in game.handindex" id="playerhand{{index}}" 
            ng-src="./imgs/{{game.chand[index]}}.png" alt="Smiley face"
+           ng-click="selection.selectedNode = index; game.paiClicked(index)"
+           ng-class="{contrast:selection.selectedNode == index && game.canSelectPai}"
+           height="100%">
+         
+      </div>
+      
+      <div id="palyerHand" class="object" 
+        ng-if="game.ifEnd"
+        style="position:absolute; top:20%; right:0; width:{{game.playerHandLength*7}}%; height:100%;">
+        <img class="svgclass"
+           ng-repeat="index in game.handindex" id="playerhand{{index}}" 
+           ng-src="./imgs/tiles_lying/{{game.chand[index]}}.png" alt="Smiley face"
            ng-click="selection.selectedNode = index; game.paiClicked(index)"
            ng-class="{contrast:selection.selectedNode == index && game.canSelectPai}"
            height="100%">
