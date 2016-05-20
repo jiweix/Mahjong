@@ -304,7 +304,9 @@ module gameLogic {
     if (movetype === 4) {   
         turnIndexAfterMove = -1;
         boardAfterMove.turn = -1;
-        currenntPlayer === 'X' ? boardAfterMove.px.hand.push(pai) : boardAfterMove.po.hand.push(pai)
+  //     if (boardAfterMove.turn === 1 || boardAfterMove.turn === 3 ) {
+            currenntPlayer === 'X' ? boardAfterMove.px.hand.push(pai) : boardAfterMove.po.hand.push(pai)
+  //      }        
         endMatchScores = currenntPlayer === 'X' ? [1, 0] : [0, 1];    
     } else if (movetype === 5 && isTie(board)) {
         boardAfterMove.turn = -1;
@@ -336,7 +338,7 @@ module gameLogic {
         let pais: paiStack = [pai, pai, pai];       
         movePaitoOpen(playerToUpdate, pais);
     }
-    if (movetype <= 4) {
+    if (movetype <= 4 || (movetype === 4 && (boardAfterMove.turn === 1 || boardAfterMove.turn ===3)) ){
       boardAfterMove.out.pop();
     }
     /** current move is Zhua*/

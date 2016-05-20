@@ -258,6 +258,9 @@ var gameLogic;
         if (movetype === 4) {
             turnIndexAfterMove = -1;
             boardAfterMove.turn = -1;
+            if (boardAfterMove.turn === 1 || boardAfterMove.turn === 3) {
+                currenntPlayer === 'X' ? boardAfterMove.px.hand.push(pai) : boardAfterMove.po.hand.push(pai);
+            }
             endMatchScores = currenntPlayer === 'X' ? [1, 0] : [0, 1];
         }
         else if (movetype === 5 && isTie(board)) {
@@ -291,7 +294,7 @@ var gameLogic;
             var pais = [pai, pai, pai];
             movePaitoOpen(playerToUpdate, pais);
         }
-        if (movetype <= 3) {
+        if (movetype <= 4 || (movetype === 4 && (boardAfterMove.turn === 1 || boardAfterMove.turn === 3))) {
             boardAfterMove.out.pop();
         }
         /** current move is Zhua*/
@@ -330,15 +333,16 @@ var gameLogic;
     gameLogic.createMove = createMove;
     function movePaitoOpen(player, pai) {
         for (var i = 0; i < 2; i++) {
-            player.open.push(pai[i]);
             var index = player.hand.indexOf(pai[i]);
             if (index === -1) {
                 throw new Error("MovePaitoOPEN is illegal" + player.hand);
             }
             player.hand.splice(index, 1);
         }
-        player.open.push(pai[2]);
-        player.open.sort(compareNumbers);
+        pai.sort(compareNumbers);
+        for (var i = 0; i < 3; i++) {
+            player.open.push(pai[i]);
+        }
     }
     function checkLegalMove(hand, pai, movetype, turn) {
         var legal = [];
@@ -416,6 +420,7 @@ var game;
     game.paiSelected = null;
     game.cpai = null;
     game.chand = null;
+    game.ohand = null;
     game.handindex = null;
     game.opphandindex = null;
     game.openindex = null;
@@ -429,6 +434,7 @@ var game;
     game.player = null;
     game.opp = null;
     game.selectedIndex = -1;
+    game.ifEnd = false;
     //export let playerIndexCounter : number = -1;
     //let yourPlayerIndexAddjust : number = 0;
     game.MOVE = ["LCHI", "MCHI", "RCHI", "PENG", "HU", "ZHUA", "DA"];
@@ -506,6 +512,7 @@ var game;
         if (!game.state) {
             game.state = gameLogic.getInitialState();
         }
+        game.ifEnd = params.move.turnIndexAfterMove == -1;
         game.canMakeMove = game.move.turnIndexAfterMove >= 0 &&
             params.yourPlayerIndex === game.move.turnIndexAfterMove; // it's my turn
         // Initiallize the pai for next move  
@@ -514,6 +521,7 @@ var game;
         game.player = params.yourPlayerIndex === 0 ? game.state.board.px : game.state.board.po;
         game.opp = params.yourPlayerIndex === 0 ? game.state.board.po : game.state.board.px;
         game.chand = game.player.hand;
+        game.ohand = game.opp.hand;
         game.playerHandLength = game.chand.length;
         game.opponentHandLength = game.opp.hand.length;
         game.playerOpenLength = game.player.open.length;
