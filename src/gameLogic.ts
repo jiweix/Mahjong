@@ -304,6 +304,9 @@ module gameLogic {
     if (movetype === 4) {   
         turnIndexAfterMove = -1;
         boardAfterMove.turn = -1;
+       if (board.turn === 1 || board.turn === 3 ) {
+            currenntPlayer === 'X' ? boardAfterMove.px.hand.push(pai) : boardAfterMove.po.hand.push(pai)
+        }        
         endMatchScores = currenntPlayer === 'X' ? [1, 0] : [0, 1];    
     } else if (movetype === 5 && isTie(board)) {
         boardAfterMove.turn = -1;
@@ -335,7 +338,7 @@ module gameLogic {
         let pais: paiStack = [pai, pai, pai];       
         movePaitoOpen(playerToUpdate, pais);
     }
-    if (movetype <= 3) {
+    if (movetype <= 4 || (movetype === 4 && (boardAfterMove.turn === 1 || boardAfterMove.turn ===3)) ){
       boardAfterMove.out.pop();
     }
     /** current move is Zhua*/
@@ -373,15 +376,16 @@ module gameLogic {
   
   function movePaitoOpen (player: Player, pai: paiStack) : void {
       for (let i=0; i<2; i++){
-          player.open.push(pai[i]);
           let index = player.hand.indexOf(pai[i]);
           if (index === -1) {
               throw new Error("MovePaitoOPEN is illegal"+ player.hand);
           }
           player.hand.splice(index, 1);
       }
-      player.open.push(pai[2]);
-      //player.open.sort(compareNumbers);
+      pai.sort(compareNumbers);
+      for (let i=0; i<3; i++){
+         player.open.push(pai[i]); 
+      }
   }
   
   function checkLegalMove (hand: paiStack, pai: number, movetype: number, turn: number): legalmove {

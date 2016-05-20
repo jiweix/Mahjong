@@ -20,9 +20,9 @@ td {
 
 .help-tip {
 	position: absolute;
-  bottom:5px;
-  left: 5px;
-  z-index:10;
+    bottom:5px;
+    left: 5px;
+    z-index:10;
 	text-align: center;
 	background-color: #BCDBEA;
 	border-radius: 50%;
@@ -40,10 +40,11 @@ td {
 .contrast {
 	-webkit-filter: contrast(160%); 
 	filter: contrast(160%);
-	transform:translateY(-10px);
-	-webkit-transform:translateY(-10px);
-	transition: all 0.2s ease;
-	-webkit-transition: all 0.2s ease;
+	transform:translateY(-20px);
+	-webkit-transform:translateY(-20px);
+	transition: all 0.3s ease;
+	-webkit-transition: all 0.3s ease;
+
 }
 
 .leftPai {
