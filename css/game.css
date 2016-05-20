@@ -45,3 +45,15 @@ td {
 	transition: all 0.2s ease;
 	-webkit-transition: all 0.2s ease;
 }
+
+.leftPai {
+	transform:rotate(180deg);
+	-webkit-transform:rotate(180deg);
+}
+
+.painum {
+	font-size: 10vmin;
+	color: yellow;
+	font-weight: bold;
+	font-family: Courier New, Courier, monospace
+}

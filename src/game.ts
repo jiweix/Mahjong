@@ -32,6 +32,7 @@ module game {
   export let opp : Player = null;
   export let selectedIndex : number = -1;
   export let ifEnd : boolean = false;
+  export let paiLeft : number = null;
   //export let playerIndexCounter : number = -1;
   //let yourPlayerIndexAddjust : number = 0;
   
@@ -114,7 +115,6 @@ module game {
     animationEnded = false;
     move = params.move;
     state = move.stateAfterMove;
-
     if (!state) {
       state = gameLogic.getInitialState();
     }
@@ -127,7 +127,7 @@ module game {
     // Initiallize the pai for next move  
     // need to consider option 4
     cpai = state.board.out[state.board.out.length - 1];
-    
+    paiLeft = 136-state.board.stock[136];
     player = params.yourPlayerIndex === 0? state.board.px: state.board.po;
     opp = params.yourPlayerIndex === 0? state.board.po: state.board.px;
        

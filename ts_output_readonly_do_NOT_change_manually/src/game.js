@@ -28,6 +28,7 @@ var game;
     game.opp = null;
     game.selectedIndex = -1;
     game.ifEnd = false;
+    game.paiLeft = null;
     //export let playerIndexCounter : number = -1;
     //let yourPlayerIndexAddjust : number = 0;
     game.MOVE = ["LCHI", "MCHI", "RCHI", "PENG", "HU", "ZHUA", "DA"];
@@ -111,6 +112,7 @@ var game;
         // Initiallize the pai for next move  
         // need to consider option 4
         game.cpai = game.state.board.out[game.state.board.out.length - 1];
+        game.paiLeft = 136 - game.state.board.stock[136];
         game.player = params.yourPlayerIndex === 0 ? game.state.board.px : game.state.board.po;
         game.opp = params.yourPlayerIndex === 0 ? game.state.board.po : game.state.board.px;
         game.chand = game.player.hand;
