@@ -66,6 +66,16 @@ describe("In Mahjong", function () {
             throw new Error("Initial board illegal! expecting: " + JSON.stringify(InitialState.board) + " We got: " + JSON.stringify(board));
         }
     });
+    it("Seven double HU", function () {
+        var hand1 = [0, 1, 3, 5, 7, 8, 5, 4, 3];
+        var hand2 = [0, 1, 3, 5, 7, 8, 5, 4, 3, 0, 9, 6, 5, 7];
+        var hand3 = [0, 1, 3, 5, 7, 8, 5, 7, 8, 3, 1, 3, 0, 3];
+        var hand4 = [0, 0, 1, 3, 3, 5, 5, 7, 7, 8, 8, 9, 9, 1];
+        expect(gameLogic.ifSevenDouble(hand1)).toBeFalsy();
+        expect(gameLogic.ifSevenDouble(hand2)).toBeFalsy();
+        expect(gameLogic.ifSevenDouble(hand3)).toBeTruthy();
+        expect(gameLogic.ifSevenDouble(hand4)).toBeTruthy();
+    });
     it("Player X make move ZHUA after initiallize is legal", function () {
         expectMove(OK, 0, INITIAL_BOARD, 15, 5, {
             stock: [2, 92, 80, 15, 7, 98, 122, 13, 3, 81, 53, 106, 76, 6, 41, 71, 59, 54, 87, 89, 47, 1, 25, 121, 38, 83, 60, 37, 58, 24, 8, 28, 94, 84, 118, 44, 108, 20, 57, 51, 11, 77, 129, 39, 62, 115, 40, 117, 78, 75, 72, 112, 67, 61, 128, 69, 85, 5, 104, 19, 70, 124, 23, 10, 46, 16, 100, 68, 74, 9, 123, 63, 131, 50, 111, 135, 29, 107, 34, 88, 21, 32, 31, 82, 30, 42, 14, 90, 49, 134, 22, 27, 86, 132, 56, 35, 96, 45, 52, 91, 66, 43, 102, 99, 79, 116, 97, 109, 133, 110, 126, 113, 17, 33, 0, 36, 127, 103, 95, 64, 125, 130, 93, 73, 18, 65, 120, 105, 101, 4, 55, 119, 114, 12, 26, 48, 27],

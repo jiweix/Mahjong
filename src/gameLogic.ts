@@ -161,6 +161,22 @@ module gameLogic {
     }
     return false;
   }
+  
+  export function ifSevenDouble(cards: paiStack): boolean {
+      let newcards : paiStack = angular.copy(cards);
+      if (newcards.length != 14) {
+          return false;
+      }
+      let sevendouble : boolean = true;
+      newcards.sort(compareNumbers);
+      for (let i=0; i<7; i++){
+          if ( newcards[i*2] != newcards[i*2+1]){
+             sevendouble = false; 
+             break;
+          }
+      }
+      return sevendouble;
+  }
 
   function ifHu(cards: paiStack, pai:number ) : boolean{
     /*
@@ -173,12 +189,15 @@ module gameLogic {
             example input: [8,8,8,8,7,6,5,4,3,2,1,0,0,0]
     return: bool, true if this hand could win, false if not
     */
-    let newcards : number[] = angular.copy(cards);
+    let newcards : paiStack = angular.copy(cards);
     newcards.push(pai);
+    if (ifSevenDouble(newcards)) {
+        return true;
+    }
     if ([5, 8, 11, 14].indexOf(newcards.length) == -1){
       console.log("Hu length of arr is illegal.");
       throw "Hu number of cards is illegal";
-    }     
+    }
     let cardsNewFormat = formatConvert(newcards);
     let kingPos = -1;
     let kingExist = false;

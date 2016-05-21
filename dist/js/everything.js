@@ -125,6 +125,22 @@ var gameLogic;
         }
         return false;
     }
+    function ifSevenDouble(cards) {
+        var newcards = angular.copy(cards);
+        if (newcards.length != 14) {
+            return false;
+        }
+        var sevendouble = true;
+        newcards.sort(compareNumbers);
+        for (var i = 0; i < 7; i++) {
+            if (newcards[i * 2] != newcards[i * 2 + 1]) {
+                sevendouble = false;
+                break;
+            }
+        }
+        return sevendouble;
+    }
+    gameLogic.ifSevenDouble = ifSevenDouble;
     function ifHu(cards, pai) {
         /*
         input:  arr of integer (range [0-34]) presenting current hand,
@@ -138,6 +154,9 @@ var gameLogic;
         */
         var newcards = angular.copy(cards);
         newcards.push(pai);
+        if (ifSevenDouble(newcards)) {
+            return true;
+        }
         if ([5, 8, 11, 14].indexOf(newcards.length) == -1) {
             console.log("Hu length of arr is illegal.");
             throw "Hu number of cards is illegal";

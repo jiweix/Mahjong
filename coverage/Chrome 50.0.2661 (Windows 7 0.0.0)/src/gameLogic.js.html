@@ -20,24 +20,24 @@
     </h1>
     <div class='clearfix'>
       <div class='fl pad1y space-right2'>
-        <span class="strong">93.21% </span>
+        <span class="strong">93.19% </span>
         <span class="quiet">Statements</span>
-        <span class='fraction'>247/265</span>
+        <span class='fraction'>260/279</span>
       </div>
       <div class='fl pad1y space-right2'>
-        <span class="strong">84.17% </span>
+        <span class="strong">84.14% </span>
         <span class="quiet">Branches</span>
-        <span class='fraction'>117/139</span>
+        <span class='fraction'>122/145</span>
       </div>
       <div class='fl pad1y space-right2'>
-        <span class="strong">96% </span>
+        <span class="strong">96.15% </span>
         <span class="quiet">Functions</span>
-        <span class='fraction'>24/25</span>
+        <span class='fraction'>25/26</span>
       </div>
       <div class='fl pad1y space-right2'>
-        <span class="strong">93.1% </span>
+        <span class="strong">93.09% </span>
         <span class="quiet">Lines</span>
-        <span class='fraction'>243/261</span>
+        <span class='fraction'>256/275</span>
       </div>
     </div>
   </div>
@@ -448,7 +448,26 @@
 403
 404
 405
-406</td><td class="line-coverage quiet"><span class="cline-any cline-yes">1×</span>
+406
+407
+408
+409
+410
+411
+412
+413
+414
+415
+416
+417
+418
+419
+420
+421
+422
+423
+424
+425</td><td class="line-coverage quiet"><span class="cline-any cline-yes">1×</span>
 <span class="cline-any cline-yes">1×</span>
 <span class="cline-any cline-yes">1×</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -491,7 +510,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1×</span>
-<span class="cline-any cline-yes">436×</span>
+<span class="cline-any cline-yes">699×</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1×</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -576,6 +595,22 @@
 <span class="cline-any cline-yes">4×</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">9×</span>
+<span class="cline-any cline-yes">9×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8×</span>
+<span class="cline-any cline-yes">8×</span>
+<span class="cline-any cline-yes">8×</span>
+<span class="cline-any cline-yes">26×</span>
+<span class="cline-any cline-yes">6×</span>
+<span class="cline-any cline-yes">6×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -588,6 +623,9 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">5×</span>
 <span class="cline-any cline-yes">5×</span>
+<span class="cline-any cline-yes">5×</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">5×</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
@@ -980,6 +1018,22 @@
         }
         return false;
     }
+    function ifSevenDouble(cards) {
+        var newcards = angular.copy(cards);
+        if (newcards.length != 14) {
+            return false;
+        }
+        var sevendouble = true;
+        newcards.sort(compareNumbers);
+        for (var i = 0; i &lt; 7; i++) {
+            if (newcards[i * 2] != newcards[i * 2 + 1]) {
+                sevendouble = false;
+                break;
+            }
+        }
+        return sevendouble;
+    }
+    gameLogic.ifSevenDouble = ifSevenDouble;
     function ifHu(cards, pai) {
         /*
         input:  arr of integer (range [0-34]) presenting current hand,
@@ -993,6 +1047,9 @@
         */
         var newcards = angular.copy(cards);
         newcards.push(pai);
+        <span class="missing-if-branch" title="if path not taken" >I</span>if (ifSevenDouble(newcards)) {
+<span class="cstat-no" title="statement not covered" >            return true;</span>
+        }
         <span class="missing-if-branch" title="if path not taken" >I</span>if ([5, 8, 11, 14].indexOf(newcards.length) == -1) {
 <span class="cstat-no" title="statement not covered" >            console.log("Hu length of arr is illegal.");</span>
 <span class="cstat-no" title="statement not covered" >            throw "Hu number of cards is illegal";</span>
@@ -1264,7 +1321,7 @@
 </div><!-- /wrapper -->
 <div class='footer quiet pad2 space-top1 center small'>
   Code coverage
-  generated by <a href="http://istanbul-js.org/" target="_blank">istanbul</a> at Sat May 21 2016 15:47:46 GMT-0400 (Eastern Daylight Time)
+  generated by <a href="http://istanbul-js.org/" target="_blank">istanbul</a> at Sat May 21 2016 16:59:03 GMT-0400 (Eastern Daylight Time)
 </div>
 </div>
 <script src="../prettify.js"></script>

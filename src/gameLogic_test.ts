@@ -74,6 +74,17 @@ describe("In Mahjong", function() {
       throw new Error("Initial board illegal! expecting: " +JSON.stringify(InitialState.board)+ " We got: "+ JSON.stringify(board));
     } 
   });
+  
+  fit("Seven double HU", function(){
+      let hand1 = [0, 1, 3, 5, 7, 8, 5, 4, 3];
+      let hand2 = [0, 1, 3, 5, 7, 8, 5, 4, 3, 0, 9, 6, 5, 7];
+      let hand3 = [0, 1, 3, 5, 7, 8, 5, 7, 8, 3, 1, 3, 0, 3];
+      let hand4 = [0, 0, 1, 3, 3, 5, 5, 7, 7, 8, 8, 9, 9, 1];
+      expect(gameLogic.ifSevenDouble(hand1)).toBeFalsy();
+      expect(gameLogic.ifSevenDouble(hand2)).toBeFalsy();
+      expect(gameLogic.ifSevenDouble(hand3)).toBeTruthy();
+      expect(gameLogic.ifSevenDouble(hand4)).toBeTruthy();
+  });
 
   it("Player X make move ZHUA after initiallize is legal", function() {
     expectMove(OK, 0, INITIAL_BOARD, 15, 5,
