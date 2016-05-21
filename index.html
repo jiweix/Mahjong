@@ -133,7 +133,7 @@
       <!-- Opponent hand ended-->
       <div id="oppHand" class="object"
         ng-if="game.ifEnd"
-        style="position:absolute; top:16%; right:10%; width:{{game.opponentHandLength*7}}%; height:100%;transform: rotate(180deg);">
+        style="position:absolute; top:16%; right:12%; width:{{game.opponentHandLength*7}}%; height:100%;transform: rotate(180deg);">
         <img class="svgclass" ng-repeat="index in game.opphandindex" 
           height="88%" ng-src="./imgs/{{game.ohand[index]}}.png" alt="Smiley face">        
       </div>
