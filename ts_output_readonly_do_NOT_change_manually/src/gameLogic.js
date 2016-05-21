@@ -294,7 +294,7 @@ var gameLogic;
             var pais = [pai, pai, pai];
             movePaitoOpen(playerToUpdate, pais);
         }
-        if (movetype <= 4 || (movetype === 4 && (boardAfterMove.turn === 1 || boardAfterMove.turn === 3))) {
+        if (movetype <= 3 || (movetype === 4 && (board.turn === 1 || board.turn === 3))) {
             boardAfterMove.out.pop();
         }
         /** current move is Zhua*/

@@ -40,10 +40,10 @@ td {
 .contrast {
 	-webkit-filter: contrast(160%); 
 	filter: contrast(160%);
-	transform:translateY(-20px);
-	-webkit-transform:translateY(-20px);
-	transition: all 0.3s ease;
-	-webkit-transition: all 0.3s ease;
+	transform:translateY(-12px);
+	-webkit-transform:translateY(-12px);
+	transition: all 0.2s ease-in-out;
+	-webkit-transition: all 0.2s ease-in-out;
 
 }
 
