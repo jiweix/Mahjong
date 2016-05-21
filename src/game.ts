@@ -168,7 +168,7 @@ module game {
   }
 
   export function paiClicked(index : number): void {
-    if (canMakeMove) {
+    if (canSelectPai) {
       paiSelected = chand[index];
       selectedIndex = index;
     }

@@ -556,7 +556,7 @@ var game;
         }
     }
     function paiClicked(index) {
-        if (game.canMakeMove) {
+        if (game.canSelectPai) {
             game.paiSelected = game.chand[index];
             game.selectedIndex = index;
         }
