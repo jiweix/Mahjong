@@ -33,7 +33,8 @@ module game {
   export let selectedIndex : number = -1;
   export let ifEnd : boolean = false;
   export let paiLeft : number = null;
-  export let canSelectPai = false;
+  export let canSelectPai : boolean = false;
+  export let zhuaPai : boolean = false;
   //export let playerIndexCounter : number = -1;
   //let yourPlayerIndexAddjust : number = 0;
   

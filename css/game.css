@@ -58,3 +58,12 @@ td {
 	font-weight: bold;
 	font-family: Courier New, Courier, monospace
 }
+
+.zhua {
+	transform:translateY(-12px);
+	-webkit-transform:translateY(-12px);
+    transform:translateX(12px);
+	-webkit-transform:translateX(12px);
+    transition: all 0.001s linear;
+	-webkit-transition: all 0.001s linear;
+}
