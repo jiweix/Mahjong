@@ -66,7 +66,7 @@ describe("In Mahjong", function () {
             throw new Error("Initial board illegal! expecting: " + JSON.stringify(InitialState.board) + " We got: " + JSON.stringify(board));
         }
     });
-    it("Seven double HU", function () {
+    fit("Seven double HU", function () {
         var hand1 = [0, 1, 3, 5, 7, 8, 5, 4, 3];
         var hand2 = [0, 1, 3, 5, 7, 8, 5, 4, 3, 0, 9, 6, 5, 7];
         var hand3 = [0, 1, 3, 5, 7, 8, 5, 7, 8, 3, 1, 3, 0, 3];
