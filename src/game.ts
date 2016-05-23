@@ -34,7 +34,7 @@ module game {
   export let ifEnd : boolean = false;
   export let paiLeft : number = null;
   export let canSelectPai : boolean = false;
-  let zhuaTurn: boolean = false;
+  export let zhuaTurn: boolean = true;
   //export let playerIndexCounter : number = -1;
   //let yourPlayerIndexAddjust : number = 0;
   
@@ -130,10 +130,13 @@ module game {
     }
     
     if (params.stateBeforeMove) {
-        if (params.stateBeforeMove.delta.movetype === 5) {
-            zhuaTurn = true;
-        }
-    }
+      if (state.delta.movetype === 5) {
+        zhuaTurn = true;
+      }
+      else {
+        zhuaTurn = false;
+      }
+    } 
     // Initiallize the pai for next move  
     // need to consider option 4
     cpai = state.board.out[state.board.out.length - 1];
@@ -182,11 +185,16 @@ module game {
   }
   
   export function zhuaPai(index: number): boolean {
+    /** 
       if (!canMakeMove || !zhuaTurn) {
           return false;
       } else {
           return index === chand.length -1 ;
       }
+    */
+    return [2, 5, 8, 11, 14].indexOf(chand.length) != -1 
+            && index === chand.length - 1
+            && zhuaTurn;
   }
   
   export function optionClicked(option : number):void {

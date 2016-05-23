@@ -30,7 +30,7 @@ var game;
     game.ifEnd = false;
     game.paiLeft = null;
     game.canSelectPai = false;
-    var zhuaTurn = false;
+    game.zhuaTurn = true;
     //export let playerIndexCounter : number = -1;
     //let yourPlayerIndexAddjust : number = 0;
     game.MOVE = ["LCHI", "MCHI", "RCHI", "PENG", "HU", "ZHUA", "DA"];
@@ -115,8 +115,11 @@ var game;
             game.canSelectPai = game.state.board.turn % 2 === 0;
         }
         if (params.stateBeforeMove) {
-            if (params.stateBeforeMove.delta.movetype === 5) {
-                zhuaTurn = true;
+            if (game.state.delta.movetype === 5) {
+                game.zhuaTurn = true;
+            }
+            else {
+                game.zhuaTurn = false;
             }
         }
         // Initiallize the pai for next move  
@@ -162,12 +165,16 @@ var game;
     }
     game.paiClicked = paiClicked;
     function zhuaPai(index) {
-        if (!game.canMakeMove || !zhuaTurn) {
-            return false;
-        }
-        else {
-            return index === game.chand.length - 1;
-        }
+        /**
+          if (!canMakeMove || !zhuaTurn) {
+              return false;
+          } else {
+              return index === chand.length -1 ;
+          }
+        */
+        return [2, 5, 8, 11, 14].indexOf(game.chand.length) != -1
+            && index === game.chand.length - 1
+            && game.zhuaTurn;
     }
     game.zhuaPai = zhuaPai;
     function optionClicked(option) {

@@ -127,9 +127,9 @@
       <div class="space_holder" 
 
         style="position:absolute; top:0%; left:-5%; width:30%; height:100%;">
-        <div><img src="./imgs/b.png" alt="Smiley face" class="leftPai"
+        <img src="./imgs/b.png" alt="Smiley face" class="leftPai"
           style="position:absolute; top:0%; left:5%; height:100%;">
-        </div>
+        
         <div class="painum" 
           style="position:absolute; top:0%; left:22%; height:100%;">
           {{game.paiLeft}}
@@ -163,7 +163,9 @@
            ng-repeat="index in game.handindex" id="playerhand{{index}}" 
            ng-src="./imgs/{{game.chand[index]}}.png" alt="Smiley face"
            ng-click="selection.selectedNode = index; game.paiClicked(index)"
-           ng-class="{contrast:selection.selectedNode == index && game.canSelectPai}"
+           ng-class="{selected:selection.selectedNode == index && game.canSelectPai, 
+                      lastPai:game.zhuaPai(index),
+                      lastSelected:selection.selectedNode == index && game.canSelectPai && game.zhuaPai(index)}"
            height="100%">
          
       </div>
@@ -175,14 +177,9 @@
            ng-repeat="index in game.handindex" id="playerhand{{index}}" 
            ng-src="./imgs/tiles_lying/{{game.chand[index]}}.png" alt="Smiley face"
            ng-click="selection.selectedNode = index; game.paiClicked(index)"
-           ng-class="{contrast:selection.selectedNode == index && game.canSelectPai}"
+           ng-class="{selected:selection.selectedNode == index && game.canSelectPai}"
            height="100%">
          
-      </div>
-      
-      <div id="palyerHand" class="zhua"         
-         ng-repeat="index in game.handindex"
-         ng-if = "game.zhuaTurn" 
       </div>
     </div>
   </div>

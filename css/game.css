@@ -37,7 +37,7 @@ td {
 	font-weight: bold;
 	color:#fff;
 }
-.contrast {
+.selected {
 	-webkit-filter: contrast(160%); 
 	filter: contrast(160%);
 	transform:translateY(-12px);
@@ -59,11 +59,19 @@ td {
 	font-family: Courier New, Courier, monospace
 }
 
-.zhua {
-	transform:translateY(-12px);
-	-webkit-transform:translateY(-12px);
-    transform:translateX(12px);
+.lastPai {
+	
+  transform:translateX(12px);
 	-webkit-transform:translateX(12px);
-    transition: all 0.001s linear;
+  transition: all 0.001s linear;
 	-webkit-transition: all 0.001s linear;
+}
+
+.lastSelected {
+	-webkit-filter: contrast(160%); 
+	filter: contrast(160%);
+	transform:translate(12px,-12px);
+	-webkit-transform:translate(12px,-12px);
+	transition: all 0.2s ease-in-out;
+	-webkit-transition: all 0.2s ease-in-out;
 }
