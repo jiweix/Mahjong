@@ -118,7 +118,7 @@
       style="position:absolute; top:2%; left:0; width:100%; height:15%;">
       
       <div id="oppOpen" class="object"
-        style="position:absolute; top:16%; left:0%; width:{{game.opponentOpenLength*7}}%; height:100%; transform: rotate(180deg)">
+        style="position:absolute; top:16%; left:2%; width:{{game.opponentOpenLength*7}}%; height:100%; transform: rotate(180deg)">
         <img class="svgclass" ng-repeat="index in game.oppopenindex" id="oppopen{{index}}" 
           height="88%" src="./imgs/{{game.opp.open[index]}}.png" alt="Smiley face"
           >
@@ -151,10 +151,10 @@
 
         style="position:absolute; top:0%; left:-5%; width:30%; height:100%;">
         <div><img src="./imgs/b.png" alt="Smiley face" class="leftPai"
-          style="position:absolute; top:0%; left:5%; height:100%;">
+          style="position:absolute; top:0%; left:20%; height:100%;">
         </div>
         <div class="painum" 
-          style="position:absolute; top:0%; left:22%; height:100%;">
+          style="position:absolute; top:0%; left:36%; height:80%;">
           {{game.paiLeft}}
         </div>
       </div>
@@ -172,7 +172,7 @@
     <div id="playerPai" class="object"
       style="position:absolute; top:80%; left:0; width:100%; height:15%;">
       <div id="palyerOpen"
-        style="position:absolute; top:20%; left:0; width:{{game.playerOpenLength*7}}%; height:100%;">
+        style="position:absolute; top:20%; left:2%; width:{{game.playerOpenLength*7}}%; height:100%;">
         <img class="svgclass" ng-repeat="index in game.openindex" id="playeropen{{index}}" 
           height="100%" ng-src="./imgs/tiles_lying/{{game.player.open[index]}}.png" alt="Smiley face"
           >
@@ -181,7 +181,7 @@
       
       <div id="palyerHand" class="object" 
         ng-if="!game.ifEnd"
-        style="position:absolute; top:20%; right:0; width:{{game.playerHandLength*7}}%; height:100%;">
+        style="position:absolute; top:20%; right:-2%; width:{{game.playerHandLength*7}}%; height:100%;">
         <img class="svgclass"
            ng-repeat="index in game.handindex" id="playerhand{{index}}" 
            ng-src="./imgs/{{game.chand[index]}}.png" alt="Smiley face"
