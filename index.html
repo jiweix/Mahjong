@@ -13,13 +13,13 @@
   <!-- build:[href] css/everything.min.css -->
   <link rel="stylesheet" type="text/css" href="css/game.css">
   <!-- /build -->
-  <link crossorigin="anonymous" rel="stylesheet" type="text/css" href="https://yoav-zibin.github.io/emulator/main.css">
+  <link crossorigin="anonymous" rel="stylesheet" type="text/css" href="css/main.css">
 
   <!-- build:[href] css/bootstrap.min.css -->
   <link crossorigin="anonymous" rel="stylesheet" href="css/bootstrap.min.css">
   <!-- /build -->
 
-  <!-- The crossorigin attribute controls, for scripts that are obtained from other origins, whether error information will be exposed. -->
+   <!--The crossorigin attribute controls, for scripts that are obtained from other origins, whether error information will be exposed. -->
   <!-- build:[src] js/angular.min.js -->
   <script crossorigin="anonymous" src="js/angular.min.js"></script>
   <!-- /build -->
@@ -33,10 +33,11 @@
   <!-- /build -->
 
   <!-- build:[src] https://yoav-zibin.github.io/emulator/dist/turnBasedServices.3.min.js -->
-  <script crossorigin="anonymous" src="https://yoav-zibin.github.io/emulator/dist/turnBasedServices.3.js"></script>
+  <!--script crossorigin="anonymous" src="lib/turnBasedServices.3.js"></script-->
   <!-- /build -->
 
   <!-- build:js js/everything.min.js -->
+  <script src="lib/turnBasedServices.3.js"></script>
   <script src="ts_output_readonly_do_NOT_change_manually/src/gameLogic.js"></script>
   <script src="ts_output_readonly_do_NOT_change_manually/src/game.js"></script>
   <script src="ts_output_readonly_do_NOT_change_manually/src/aiService.js"></script>
