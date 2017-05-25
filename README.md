@@ -2,8 +2,9 @@
 
 Mahjong game  
 Try it at  
-http://jiweix.github.io/Mahjong/index.html
-https://bestmahjong.net 
+http://jiweix.github.io/Mahjong/index.html  
+ 
+https://bestmahjong.net  
   
 Also available at Google Play Store  
 https://play.google.com/store/apps/details?id=com.gamingplatform.mahjong&hl=en  
