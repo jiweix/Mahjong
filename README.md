@@ -2,13 +2,11 @@
 
 Mahjong game  
 Try it at  
+http://jiweix.github.io/Mahjong/index.html
 https://bestmahjong.net 
   
 Also available at Google Play Store  
 https://play.google.com/store/apps/details?id=com.gamingplatform.mahjong&hl=en  
- 
-Apple Store: https://itunes.apple.com/us/app/mahjong-2-player/id1103430518?mt=8&ign-mpt=uo%3D4 
-(The iOS version is currently not working. Will be fixed soon)
 
 Rules:  
 The basic rules for Mahjong can be found in http://mahjong.wikidot.com/basic-rules.   
